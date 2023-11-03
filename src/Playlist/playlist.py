@@ -2,26 +2,27 @@ import os
 
 class Playlist:
     def __init__(self):
-        self.files = []
+        self.files = [] #list storing file paths (absolute)
         self.filename = ''
 
     def add_file(self, file):
-        self.files.append(file)
+        self.files.append(file) 
     
     def remove_file(self,file):
         self.files.remove(file)
 
-    def save_playlist(self,filename):
+    def save_playlist(self,filename): #filename is full path(including filename) where playlist will be saved as a text file
         with open(filename, "w") as file:
             for file_path in self.files:
                 file.write(file_path + '\n')
         self.filename = filename
         
-    def load_playlist(self,filename):
+    def load_playlist(self,filename): #filename is full path(including filename) where playlist will be loaded from
         with open(filename, 'r') as file:
             self.files = [line.strip() for line in file.readlines()]
         self.filename = filename
 
+    #getter and setters
     def get_files(self):
         return self.files
 
@@ -29,8 +30,8 @@ class Playlist:
         return self.filename
 
     
-def get_media_files_from_folder(folder_path):
-    media_extensions = {'.mp3', '.mp4', '.avi', '.mkv', '.mov', '.flv'}  #change according to what 
+def get_media_files_from_folder(folder_path): #folder path is full absolute path to selected folder
+    media_extensions = {'.mp3', '.mp4', '.avi', '.mkv', '.mov', '.flv'}  #change according to what file extensions are allowed
     media_files = []
 
     for root, _, files in os.walk(folder_path):
@@ -40,7 +41,7 @@ def get_media_files_from_folder(folder_path):
 
     return media_files
 
-def select_folder_and_create_playlist(folder_path):
+def select_folder_and_create_playlist(folder_path): #folder path is full absolute path to selected folder
     #no folder selected
     if not folder_path:
         return  
