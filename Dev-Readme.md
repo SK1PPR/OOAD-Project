@@ -32,6 +32,14 @@ put 'x' in the checkboxes to show that the task has finished
 - [ ] Connecting to the main player
 
 ### Editor
+- [ ] Cut in main player
+- [ ] Copy in main player
+- [ ] Paste? in main player
+- [ ] Slider
+- [ ] Timeline
+- [ ] Cursor
+- [ ] Syncing
+- [ ] Saving new file
 
 ### Profiling
 

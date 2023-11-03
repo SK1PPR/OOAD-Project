@@ -40,7 +40,9 @@ class menu_bar(QtWidgets.QMenuBar):
         add_action(wp_menu, "Join", "Ctrl+K", "Join an existing party", join_party)
         add_action(wp_menu, "Host", "Ctrl+L", "Host a new Watch-Party", host_party)
         #Drive menu
+        # <-- Add functionality to display the current acount status -->
         add_action(drive_menu, "Import", "Ctrl-I", "Import directly from Google Drive", import_file)
+        
         
       
 def add_action(menu, name, shortcut, tip, func, icon=None):
