@@ -15,7 +15,7 @@ put 'x' in the checkboxes to show that the task has finished
 - [ ] Playlist Implementation
 
 ### Main Player
-- [ ] Convert exisitng work to modular format
+- [x] Convert exisitng work to modular format
 - [ ] Add status bar
 - [ ] Add tool bar
 - [ ] Add shortucts
