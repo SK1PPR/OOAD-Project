@@ -3,6 +3,8 @@ Use modular approach for creating the UI
 mainPlayer.py ki script padhke samajh lena sab and go through the directories of different folders to understand how to write modular code
 Comment out what your code does so that others can collaborate and add on to it
 
+This is how you create a to-do list in .md files
+put 'x' in the checkboxes to show that the task has finished
 
 ## Tasks Pending
 - [ ] Main Player
