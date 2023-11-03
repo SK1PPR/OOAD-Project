@@ -14,11 +14,11 @@ def main():
     
     window = QtWidgets.QMainWindow()
     window.setGeometry(350,100,700,500)
-    window.show()
+    
 
     #add widget here
     window.menuBar = menu_bar(window)
-    
+    window.show()
     
     
     sys.exit(app.exec_())
