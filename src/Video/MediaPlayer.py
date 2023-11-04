@@ -25,30 +25,20 @@ class media_player(QMediaPlayer):
     def open_file(self, filename):
         self.setMedia(QMediaContent(QUrl.fromLocalFile(''.join(filename))))
         self.setVideoOutput(self.video_widget)
-        self.stateChanged.connect(self.media_state_changed)
+        # self.stateChanged.connect(self.media_state_changed)
         self.positionChanged.connect(self.position_changed)
         
-    #Returns true if playing
-    def media_state_changed(self):
-        if self.state() == QMediaPlayer.PlayingState:
-            #do nothing here
-            pass
-        elif self.state() == QMediaPlayer.PausedState:
-            #do nothin here
-            pass
-        else:
-            pass
-            # self.playlist.increment_index()
-            # filename = self.playlist.get_filename()
-            # if filename is None:
-            #     #playlist has ended
-            #     pass
-            # else: 
-            #     self.open_file(filename)
+    # #Returns true if playing
+    # def media_state_changed(self):
+    #     if self.state() == QMediaPlayer.StoppedState:
+    #         self.playlist.playing_index += 1
+    #         file_list = self.playlist._list
+    #         if len(file_list) < self.playlist.playing_index:
+    #             self.open_file(self.playlist._list[self.playlist.playing_index])
             
     
     def position_changed(self, position):
-        self.setPosition(position)
+        self.parent.get_position(position)
     
     
         

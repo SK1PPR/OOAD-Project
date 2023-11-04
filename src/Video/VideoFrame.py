@@ -25,16 +25,19 @@ class video_frame(QtWidgets.QWidget):
         self.volume_down.setEnabled(False)
         
         #Connect buttons to functions
-        self.is_paused = True
+        self.is_paused = False
+        self.play_btn.clicked.connect(self.play_pause)
+        self.forward_btn.clicked.connect(self.forward)
+        self.backward_btn.clicked.connect(self.previous)
         
         
-        time_slider = QtWidgets.QSlider(QtCore.Qt.Horizontal)
-        time_slider.setRange(0,RANGE)
-        time_slider.sliderMoved.connect(self.set_position)
+        
+        self.time_slider = QtWidgets.QSlider(QtCore.Qt.Horizontal)
+        self.time_slider.setRange(0,RANGE)
+        self.time_slider.sliderMoved.connect(self.set_position)
         self.is_dragged = False
-        time_slider.sliderPressed.connect(self.dragged)
-        time_slider.sliderReleased.connect(self.released)
-        #Connect timer to mediaplayer position
+        
+        
         
         #initialize mediaplayer
         self.media_player_widget = media_player(self)
@@ -54,25 +57,23 @@ class video_frame(QtWidgets.QWidget):
         
         screen_layout = QtWidgets.QVBoxLayout()
         screen_layout.addWidget(self.media_player_widget.video_widget)
-        screen_layout.addWidget(time_slider)
+        screen_layout.addWidget(self.time_slider)
         screen_layout.addLayout(btn_layout)
         
         self.setLayout(screen_layout)
-        
-        
-    def dragged(self):
-        self.is_dragged = True
-        
-    def released(self,position):
-        if self.is_dragged:
-            self.is_dragged = False
-            self.set_position(position)
     
-    def set_position(self, position):
+    def set_position(self):
         global RANGE
-
-        pos = (self.media_player_widget.duration()/RANGE) * position
-        self.media_player_widget.position_changed(pos)
+        position = self.time_slider.value()
+        pos = (int((self.media_player_widget.duration()/RANGE) * position))
+        self.media_player_widget.setPosition(pos)
+        
+    def get_position(self, position):
+        global RANGE
+        # print(self.media_player_widget.duration())
+        if self.media_player_widget.duration() != 0:
+            pos = (int((position / self.media_player_widget.duration()) * RANGE))
+            self.time_slider.setValue(pos)
         
     def enable(self):
         self.play_btn.setEnabled(True)
@@ -81,6 +82,30 @@ class video_frame(QtWidgets.QWidget):
         self.volume_up.setEnabled(True)
         self.volume_down.setEnabled(True)
         
+    def play_pause(self):
+        if self.is_paused:
+            self.is_paused = False
+            self.media_player_widget.play()
+        else:
+            self.is_paused = True
+            self.media_player_widget.pause()
+    
+    def forward(self):
+        self.playlist.playing_index += 1
+        if len(self.playlist._list) > self.playlist.playing_index:
+            self.media_player_widget.stop()
+            self.media_player_widget.open_file(self.playlist._list[self.playlist.playing_index])
+            self.media_player_widget.play()
+        else:
+            self.media_player_widget.stop()
+    
+    def previous(self):
+        if self.playlist.playing_index > 0:
+            self.playlist.playing_index -= 1
+            self.media_player_widget.open_file(self.playlist._list[self.playlist.playing_index])
+            self.media_player_widget.play()
+        else:
+            pass
         
                 
      

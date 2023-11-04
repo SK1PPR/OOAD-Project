@@ -49,3 +49,10 @@ put 'x' in the checkboxes to show that the task has finished
 ### Profiling
 
 ### Playlist Implementation
+
+
+### Extras
+- [ ] VLC instead of PyQt
+- [ ] Installation guide Readme.md
+- [ ] Check support on other platforms
+ 
