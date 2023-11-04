@@ -1,6 +1,10 @@
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets, QtCore
 
 class menu_bar(QtWidgets.QMenuBar):
+    
+    # <--Signals-->
+    open_file_signal = QtCore.pyqtSignal()
+    
     
     def __init__(self, parent=None):
         #Create the menu bar
@@ -28,7 +32,7 @@ class menu_bar(QtWidgets.QMenuBar):
         
         # Adding actions and submenus
         #File menu       
-        add_action(file_menu, "&Open File", "Ctrl+O", "Open file", open_file)
+        add_action(file_menu, "&Open File", "Ctrl+O", "Open file", self.open_file)
         add_action(file_menu, "&Open Playlist", "Ctrl+Shift+O", "Open playlist", open_playlist)
         add_action(file_menu, "&Save", "Ctrl+S", "Save file with current name", save_file)
         add_action(file_menu, "Save As...", "Ctrl+Shift+S", "Save file as...", save_as)
@@ -43,6 +47,10 @@ class menu_bar(QtWidgets.QMenuBar):
         # <-- Add functionality to display the current acount status -->
         add_action(drive_menu, "Import", "Ctrl-I", "Import directly from Google Drive", import_file)
         
+    def open_file(self):
+        self.open_file_signal.emit()
+        print("update called")
+        
         
       
 def add_action(menu, name, shortcut, tip, func, icon=None):
@@ -56,11 +64,12 @@ def add_action(menu, name, shortcut, tip, func, icon=None):
     menu.addAction(action)
     
 #File menu functions
-def open_file():
+
+    
+def open_playlist(self):
     pass
-        
-def open_playlist():
-    pass
+    # self.open_file_signal.emit("Hello darkness my old friend!")        
+
         
 def save_file():
     pass 
