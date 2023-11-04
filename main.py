@@ -8,7 +8,7 @@ def main():
 	try:
 		app=QtWidgets.QApplication(sys.argv)
 		main_window=controller()
-		main_window.show()
+		main_window.window.show()
 		sys.exit(app.exec_())
   
 	except KeyboardInterrupt:

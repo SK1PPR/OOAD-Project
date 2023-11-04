@@ -1,18 +1,14 @@
 from PyQt5 import QtWidgets
-from src.PyQtFrames.MenuBar import menu_bar
-from src.PyQtFrames.ToolBar import tool_bar
-from src.PyQtFrames.StatusBar import status_bar
-from src.Video.VideoFrame import video_frame
+from src.Backend.Playlist import playlist
+from src.Layouts.mainPlayer import main_player
+
 
 class controller(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
-        super().__init__(parent)
-        self.setGeometry(350,100,700,500)
-        menu_bar_widget = menu_bar(self)
-        stats = status_bar(self)
-        self.setMenuWidget(menu_bar_widget)
-        self.setStatusBar(stats)
-        frame = video_frame(self)
-        self.setCentralWidget(frame)
+        self.set_main_player(parent)
+        self.window.setGeometry(350,100,700,500)
+    
+    def set_main_player(self, parent):
+        self.window = main_player(parent)
         
     

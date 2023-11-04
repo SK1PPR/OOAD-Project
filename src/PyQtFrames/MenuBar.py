@@ -1,4 +1,8 @@
+from ..Backend.Playlist import playlist
 from PyQt5 import QtWidgets, QtCore
+import os
+
+MEDIA_EXTENSIONS = ['.mp3', '.mp4', '.avi', '.mkv', '.mov', '.flv']
 
 class menu_bar(QtWidgets.QMenuBar):
     
@@ -9,9 +13,11 @@ class menu_bar(QtWidgets.QMenuBar):
     def __init__(self, parent=None):
         #Create the menu bar
         super().__init__(parent)
+        self.parent = parent
         self.setEnabled(True)
         self.setNativeMenuBar(False)
         self.setGeometry(0,0,700,30)
+        self.playlist = playlist()
         
         # <-- Import icons over here -->
         
@@ -48,8 +54,14 @@ class menu_bar(QtWidgets.QMenuBar):
         add_action(drive_menu, "Import", "Ctrl-I", "Import directly from Google Drive", import_file)
         
     def open_file(self):
-        self.open_file_signal.emit()
-        print("update called")
+        global MEDIA_EXTENSIONS
+        
+        filename, _ = QtWidgets.QFileDialog.getOpenFileName(self, "Open Video")
+        
+        if filename is not None:
+            #need to check if the file is of supported format
+            playlist_t = playlist()
+            playlist_t.add_file(filename)
         
         
       

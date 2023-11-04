@@ -1,5 +1,6 @@
 from .MediaPlayer import media_player
 from PyQt5 import QtWidgets, QtCore
+from ..Backend.Playlist import playlist
 
 RANGE = 1000
 
@@ -9,18 +10,19 @@ class video_frame(QtWidgets.QWidget):
         global RANGE
         
         super().__init__(parent)
+        self.playlist = playlist()
         
         #Buttons in video frame
-        play_btn = QtWidgets.QPushButton()
-        forward_btn = QtWidgets.QPushButton()
-        backward_btn = QtWidgets.QPushButton()
-        volume_up_btn = QtWidgets.QPushButton()
-        volume_down_btn = QtWidgets.QPushButton()
-        play_btn.setEnabled(False)
-        forward_btn.setEnabled(False)
-        backward_btn.setEnabled(False)
-        volume_up_btn.setEnabled(False)
-        volume_down_btn.setEnabled(False)
+        self.play_btn = QtWidgets.QPushButton()
+        self.forward_btn = QtWidgets.QPushButton()
+        self.backward_btn = QtWidgets.QPushButton()
+        self.volume_up = QtWidgets.QPushButton()
+        self.volume_down = QtWidgets.QPushButton()
+        self.play_btn.setEnabled(False)
+        self.forward_btn.setEnabled(False)
+        self.backward_btn.setEnabled(False)
+        self.volume_up.setEnabled(False)
+        self.volume_down.setEnabled(False)
         
         #Connect buttons to functions
         
@@ -39,12 +41,12 @@ class video_frame(QtWidgets.QWidget):
         space1 = QtWidgets.QSpacerItem(200,0, QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Minimum)
         space2 = QtWidgets.QSpacerItem(100,0, QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Minimum)
         btn_layout.addItem(space1)
-        btn_layout.addWidget(backward_btn, 1)
-        btn_layout.addWidget(play_btn, 1)
-        btn_layout.addWidget(forward_btn, 1)
+        btn_layout.addWidget(self.backward_btn, 1)
+        btn_layout.addWidget(self.play_btn, 1)
+        btn_layout.addWidget(self.forward_btn, 1)
         btn_layout.addItem(space2)
-        btn_layout.addWidget(volume_down_btn, 1)
-        btn_layout.addWidget(volume_up_btn, 1)
+        btn_layout.addWidget(self.volume_down, 1)
+        btn_layout.addWidget(self.volume_up, 1)
         btn_layout.setContentsMargins(0,0,0,0)
         
         
@@ -54,6 +56,7 @@ class video_frame(QtWidgets.QWidget):
         screen_layout.addLayout(btn_layout)
         
         self.setLayout(screen_layout)
+        
         
     def dragged(self):
         self.is_dragged = True
@@ -68,6 +71,9 @@ class video_frame(QtWidgets.QWidget):
 
         pos = (self.media_player_widget.duration()/RANGE) * position
         self.media_player_widget.position_changed(pos)
+        
+        
+                
      
         
         
