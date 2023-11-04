@@ -30,11 +30,11 @@ class playlist(object):
         if self._list != value:
             self._list = value
             if self._change_callback is not None:
+                print(self._list)
                 self._change_callback()
 
     def add_file(self, file):
         new_file = self._list + [file]
-        print(new_file)
         self.list = new_file 
     
     def remove_file(self,file):

@@ -1,5 +1,7 @@
 from ..Backend.Playlist import playlist
+from ..Backend.Playlist import get_media_files_from_folder
 from PyQt5 import QtWidgets, QtCore
+from ..Drive.drive import google_drive_downloader_app
 import os
 
 MEDIA_EXTENSIONS = ['.mp3', '.mp4', '.avi', '.mkv', '.mov', '.flv']
@@ -39,7 +41,7 @@ class menu_bar(QtWidgets.QMenuBar):
         # Adding actions and submenus
         #File menu       
         add_action(file_menu, "&Open File", "Ctrl+O", "Open file", self.open_file)
-        add_action(file_menu, "&Open Playlist", "Ctrl+Shift+O", "Open playlist", open_playlist)
+        add_action(file_menu, "&Open Playlist", "Ctrl+Shift+O", "Open playlist", self.open_playlist)
         add_action(file_menu, "&Save", "Ctrl+S", "Save file with current name", save_file)
         add_action(file_menu, "Save As...", "Ctrl+Shift+S", "Save file as...", save_as)
         #Edit menu
@@ -53,15 +55,30 @@ class menu_bar(QtWidgets.QMenuBar):
         # <-- Add functionality to display the current acount status -->
         add_action(drive_menu, "Import", "Ctrl-I", "Import directly from Google Drive", import_file)
         
+    #File menu functionality
+        
     def open_file(self):
         global MEDIA_EXTENSIONS
         
         filename, _ = QtWidgets.QFileDialog.getOpenFileName(self, "Open Video", '', 'Video (*mp4 *avi *mkv *flv *mov);;Audio (*mp3)')
         
         if filename is not None:
-            #need to check if the file is of supported format
             playlist_t = playlist()
             playlist_t.add_file(filename)
+            
+    def open_playlist(self):
+        
+        foldername = str(QtWidgets.QFileDialog.getExistingDirectory(self, "Open Folder"))
+        
+        if foldername != '':
+            print('a')
+            files = get_media_files_from_folder(foldername)
+            print(files)
+            playlist_t = playlist()
+            for file in files:
+                playlist_t.add_file(file)
+            
+        
         
         
       
@@ -75,14 +92,7 @@ def add_action(menu, name, shortcut, tip, func, icon=None):
     action.triggered.connect(func)
     menu.addAction(action)
     
-#File menu functions
-
-    
-def open_playlist(self):
-    pass
-    # self.open_file_signal.emit("Hello darkness my old friend!")        
-
-        
+#File menu functions        
 def save_file():
     pass 
         
@@ -108,7 +118,8 @@ def host_party():
         
 #Drive functions
 def import_file():
-    pass
+    drive_test = google_drive_downloader_app()
+    drive_test.exec_()
         
-        
+
         

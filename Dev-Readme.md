@@ -15,8 +15,8 @@ This is how you create a to-do list in .md files
 put 'x' in the checkboxes to show that the task has finished
 
 ## Tasks Pending
-- [ ] Main Player
-- [ ] Drive Integration
+- [x] Main Player
+- [x] Drive Integration
 - [ ] Editor
 - [ ] Watch Party Implementation
 - [ ] Profiling and opening previous saves
@@ -25,7 +25,7 @@ put 'x' in the checkboxes to show that the task has finished
 ### Main Player
 - [x] Convert exisitng work to modular format
 - [x] Add status bar
-- [ ] Add shortucts
+- [x] Add shortucts
 - [x] Add message bar
 - [ ] Error and exception case handling
 - [x] Opening other layouts
@@ -35,7 +35,7 @@ put 'x' in the checkboxes to show that the task has finished
 - [ ] Video Streaming
 - [ ] Audio Streaming
 - [ ] Chat Integration
-- [ ] Errors and exceptino handling
+- [ ] Errors and exception handling
 - [ ] Connecting to the main player
 
 ### Editor

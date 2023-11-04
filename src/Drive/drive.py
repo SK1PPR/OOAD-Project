@@ -11,6 +11,7 @@ import pickle
 import googleapiclient.discovery
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
+from PyQt5 import QtWidgets
 
 # Define the scopes for the Google Drive API
 SCOPES = ['https://www.googleapis.com/auth/drive.readonly']
@@ -92,3 +93,44 @@ def map_folder_name_to_id(target_name):
 
     # Return None if the folder with the specified name is not found
     return None
+
+class google_drive_downloader_app(QtWidgets.QDialog):
+    def __init__(self):
+        super().__init__()
+        
+        self.setWindowTitle("Google Drive Downloader")
+        self.setGeometry(100,100,400,300)
+        
+        self.folder_checkboxes = []
+        
+        layout = QtWidgets.QVBoxLayout()
+        folders = get_folders()
+        
+        for folders in folders:
+            checkbox = QtWidgets.QCheckBox(folder['name'])
+            self.folder_checkboxes.append(checkbox)
+            layout.addWidget(checkbox)
+            
+        download_button = QtWidgets.QPushButton("Donwload Selected Folder")
+        download_button.clicked.connect(self.download_selected_folder)
+        layout.addWidget(download_button)
+        
+        self.setLayout(layout)
+        
+    def download_selected_folder(self):
+        selected_folder = None
+        for checkbox in self.folder_checkboxes:
+            if checkbox.isChecked():
+                selected_folder = checkbox.text()
+                
+        if selected_folder:
+            save_dir = QtWidgets.QFileDialog.getExistingDirectory(self, "Select Download Location")
+            if save_dir:
+                folder_id = map_folder_name_to_id(selected_folder)
+                download_to_location(folder_id, save_dir)
+        else:
+            msg = QtWidgets.QMessageBox()
+            msg.setText("Please selct a folder to download")
+            msg.setWindowTitle("Error")
+            msg.exec_()
+            
