@@ -18,7 +18,6 @@ def main():
     window = QtWidgets.QMainWindow()
     window.setGeometry(350,100,700,500)
     
-    #add widget here
     menu_bar_widget = menu_bar(window)
     stats = status_bar(window)
     window.setMenuWidget(menu_bar_widget)
