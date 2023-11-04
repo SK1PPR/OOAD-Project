@@ -40,7 +40,7 @@ put 'x' in the checkboxes to show that the task has finished
 
 ### Editor
 - [ ] Cut in main player
-- [ ] Slider
+- [x] Slider
 - [ ] Timeline
 - [ ] Cursor
 - [ ] Syncing
