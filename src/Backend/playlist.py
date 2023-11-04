@@ -73,7 +73,7 @@ def get_media_files_from_folder(folder_path): #folder path is full absolute path
     media_files = []
 
     for root, _, files in os.walk(folder_path):
-        for file in _list:
+        for file in files:
             if os.path.splitext(file)[1].lower() in media_extensions:
                 media_files.append(os.path.join(root, file))
 

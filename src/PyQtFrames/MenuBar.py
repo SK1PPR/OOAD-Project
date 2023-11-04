@@ -56,7 +56,7 @@ class menu_bar(QtWidgets.QMenuBar):
     def open_file(self):
         global MEDIA_EXTENSIONS
         
-        filename, _ = QtWidgets.QFileDialog.getOpenFileName(self, "Open Video")
+        filename, _ = QtWidgets.QFileDialog.getOpenFileName(self, "Open Video", '', 'Video (*mp4 *avi *mkv *flv *mov);;Audio (*mp3)')
         
         if filename is not None:
             #need to check if the file is of supported format

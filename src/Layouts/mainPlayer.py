@@ -1,4 +1,4 @@
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets, QtGui
 from ..PyQtFrames.MenuBar import menu_bar
 from ..PyQtFrames.StatusBar import status_bar
 from ..Video.VideoFrame import video_frame
@@ -13,5 +13,9 @@ class main_player(QtWidgets.QMainWindow):
         self.setMenuWidget(menu)
         self.setCentralWidget(frame)
         self.setStatusBar(status)
+  
+        self.setWindowTitle("PyPlayer")
+        self.setGeometry(350,100,700,500)
+        self.setWindowIcon(QtGui.QIcon("PlayerIcon.ico"))
         
         
