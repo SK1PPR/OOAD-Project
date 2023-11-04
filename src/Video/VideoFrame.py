@@ -24,6 +24,13 @@ class video_frame(QtWidgets.QWidget):
         self.volume_up.setEnabled(False)
         self.volume_down.setEnabled(False)
         
+        #Button icons
+        self.play_btn.setIcon(self.style().standardIcon(QtWidgets.QStyle.SP_MediaPlay))
+        self.forward_btn.setIcon(self.style().standardIcon(QtWidgets.QStyle.SP_MediaSeekForward))
+        self.backward_btn.setIcon(self.style().standardIcon(QtWidgets.QStyle.SP_MediaSeekBackward))
+        self.volume_up.setIcon(self.style().standardIcon(QtWidgets.QStyle.SP_ArrowUp))
+        self.volume_down.setIcon(self.style().standardIcon(QtWidgets.QStyle.SP_ArrowDown))
+        
         #Connect buttons to functions
         self.is_paused = False
         self.play_btn.clicked.connect(self.play_pause)
