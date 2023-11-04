@@ -14,13 +14,18 @@ from google.auth.transport.requests import Request
 
 # Define the scopes for the Google Drive API
 SCOPES = ['https://www.googleapis.com/auth/drive.readonly']
+#location of credentials.json
+basedir = os.path.dirname(__file__)
+credential_location = os.path.join(basedir,'credentials.json')
+#location of the token being downloaded and searched for
+token_location = os.path.join(basedir,'token.pickle')
 
 def get_drive_service(): #Returns the authenticated API service object 
     creds = None
 
     # The file token.pickle stores the user's access and refresh tokens
-    if os.path.exists('token.pickle'): #change if path where you want to save and search for token.pickle
-        with open('token.pickle', 'rb') as token:
+    if os.path.exists(token_location): #change if path where you want to save and search for token.pickle
+        with open(token_location, 'rb') as token:
             creds = pickle.load(token)
 
     # If there are no (valid) credentials, let the user log in
@@ -28,11 +33,11 @@ def get_drive_service(): #Returns the authenticated API service object
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
         else:
-            flow = InstalledAppFlow.from_client_secrets_file('credentials.json', SCOPES)
+            flow = InstalledAppFlow.from_client_secrets_file(credential_location, SCOPES)
             creds = flow.run_local_server(port=0)
 
         # Save the credentials for the next run
-        with open('token.pickle', 'wb') as token: #change if path where you want to save and search for token.pickle
+        with open(token_location, 'wb') as token: #change if path where you want to save and search for token.pickle
             pickle.dump(creds, token)
 
     return googleapiclient.discovery.build('drive', 'v3', credentials=creds)
@@ -65,7 +70,7 @@ def download_media_files(service, folder_id, save_dir):
                     done = False
                     while not done:
                         status, done = downloader.next_chunk()
-                        print(f"Downloading {item['name']}... {int(status.progress() * 100)}%")
+                        print(f"Downloading {file['name']}... {int(status.progress() * 100)}%")
 
 def get_folders():
     service = get_drive_service()
@@ -77,3 +82,13 @@ def download_to_location(folder_id, save_directory):
     service = get_drive_service()
     download_media_files(service,folder_id,save_directory)
     
+def map_folder_name_to_id(target_name):
+    service = get_drive_service()
+    folders = get_folders()
+
+    for folder in folders:
+        if folder['name'] == target_name:
+            return folder['id']
+
+    # Return None if the folder with the specified name is not found
+    return None
