@@ -1,4 +1,10 @@
-All class names are camel case with first letter capitalized
+## How to test your widgets
+in src/layout edit the layout according to what widget you want to test, update the constructor of controller to show that layout, you can refer to mainPlayer.py for setting up your layout
+
+## Do not touch main.py
+
+## General Description
+All class names are snake case and all file names are camel cased with first letter capitalized
 Use modular approach for creating the UI
 mainPlayer.py ki script padhke samajh lena sab and go through the directories of different folders to understand how to write modular code
 Comment out what your code does so that others can collaborate and add on to it
@@ -12,16 +18,15 @@ put 'x' in the checkboxes to show that the task has finished
 - [ ] Editor
 - [ ] Watch Party Implementation
 - [ ] Profiling and opening previous saves
-- [ ] Playlist Implementation
+- [x] Playlist Implementation
 
 ### Main Player
 - [x] Convert exisitng work to modular format
-- [ ] Add status bar
-- [ ] Add tool bar
+- [x] Add status bar
 - [ ] Add shortucts
-- [ ] Add message bar
+- [x] Add message bar
 - [ ] Error and exception case handling
-- [ ] Opening other layouts
+- [x] Opening other layouts
 
 ### Watch Party Implementation
 - [ ] Watch Party Join/Host screen integration
@@ -33,8 +38,6 @@ put 'x' in the checkboxes to show that the task has finished
 
 ### Editor
 - [ ] Cut in main player
-- [ ] Copy in main player
-- [ ] Paste? in main player
 - [ ] Slider
 - [ ] Timeline
 - [ ] Cursor
