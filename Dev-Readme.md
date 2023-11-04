@@ -3,6 +3,8 @@ in src/layout edit the layout according to what widget you want to test, update 
 
 ## Do not touch main.py
 
+Playlist is a global variable that will be instanced only onced, using this to communicate between different modules
+
 ## General Description
 All class names are snake case and all file names are camel cased with first letter capitalized
 Use modular approach for creating the UI

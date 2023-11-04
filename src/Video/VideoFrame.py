@@ -25,6 +25,8 @@ class video_frame(QtWidgets.QWidget):
         self.volume_down.setEnabled(False)
         
         #Connect buttons to functions
+        self.is_paused = True
+        
         
         time_slider = QtWidgets.QSlider(QtCore.Qt.Horizontal)
         time_slider.setRange(0,RANGE)
@@ -35,7 +37,7 @@ class video_frame(QtWidgets.QWidget):
         #Connect timer to mediaplayer position
         
         #initialize mediaplayer
-        self.media_player_widget = media_player()
+        self.media_player_widget = media_player(self)
         
         btn_layout = QtWidgets.QHBoxLayout()
         space1 = QtWidgets.QSpacerItem(200,0, QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Minimum)
@@ -71,6 +73,13 @@ class video_frame(QtWidgets.QWidget):
 
         pos = (self.media_player_widget.duration()/RANGE) * position
         self.media_player_widget.position_changed(pos)
+        
+    def enable(self):
+        self.play_btn.setEnabled(True)
+        self.forward_btn.setEnabled(True)
+        self.backward_btn.setEnabled(True)
+        self.volume_up.setEnabled(True)
+        self.volume_down.setEnabled(True)
         
         
                 

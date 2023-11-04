@@ -37,7 +37,7 @@ class playlist(object):
         self.list = new_file 
     
     def remove_file(self,file):
-        new_list = [item for item in self._list if item != value]
+        new_list = [item for item in self._list if item != file]
         self.list = new_list
 
     def save_playlist(self,filename):
@@ -90,14 +90,14 @@ def select_folder_and_create_playlist(folder_path): #folder path is full absolut
         print("No media _list found in the selected folder.")
         return
 
-    playlist = Playlist()
-    playlist._list = media_files
+    playlist_new = playlist()
+    playlist_new._list = media_files
 
     playlist_filename = input("Enter filename : ") #change to GUI messagebox
     playlist_filename = os.path.join(os.path.dirname(__file__), playlist_filename) #determines where the playlist will be stored
-    playlist.save_playlist(playlist_filename)
+    playlist_new.save_playlist(playlist_filename)
 
     print(f"Playlist saved as {playlist_filename}")
-    return playlist
+    return playlist_new
 
 

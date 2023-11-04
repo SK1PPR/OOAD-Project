@@ -5,7 +5,8 @@ from ..Backend.Playlist import playlist
 
 class media_player(QMediaPlayer):
     
-    def __init__(self):
+    def __init__(self,parent):
+        self.parent = parent
         super().__init__(None, QMediaPlayer.VideoSurface)
         self.video_widget = QVideoWidget()
         self.playlist = playlist()
@@ -17,6 +18,8 @@ class media_player(QMediaPlayer):
         if self.has_opened:
             self.open_file(filename)
             self.has_opened = False
+            self.parent.enable()
+            self.play()
         
         
     def open_file(self, filename):
@@ -26,21 +29,22 @@ class media_player(QMediaPlayer):
         self.positionChanged.connect(self.position_changed)
         
     #Returns true if playing
-    def media_state_changed(self) -> bool:
+    def media_state_changed(self):
         if self.state() == QMediaPlayer.PlayingState:
-            self.pause()
-            return True
+            #do nothing here
+            pass
         elif self.state() == QMediaPlayer.PausedState:
-            self.play()
-            return False
+            #do nothin here
+            pass
         else:
-            self.playlist.increment_index()
-            filename = self.playlist.get_filename()
-            if filename is None:
-                #playlist has ended
-                pass
-            else: self.open_file(filename)
-            return False
+            pass
+            # self.playlist.increment_index()
+            # filename = self.playlist.get_filename()
+            # if filename is None:
+            #     #playlist has ended
+            #     pass
+            # else: 
+            #     self.open_file(filename)
             
     
     def position_changed(self, position):
