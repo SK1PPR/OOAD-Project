@@ -2,6 +2,7 @@ from ..Backend.Playlist import playlist
 from ..Backend.Playlist import get_media_files_from_folder
 from PyQt5 import QtWidgets, QtCore
 from ..Drive.drive import google_drive_downloader_app
+from .WatchPartyWidgets import join_tab, host_tab
 import os
 
 MEDIA_EXTENSIONS = ['.mp3', '.mp4', '.avi', '.mkv', '.mov', '.flv']
@@ -111,15 +112,15 @@ def paste_file():
         
 #WP functions
 def join_party():
-    pass
+    join_dialog = join_tab()
+    join_dialog.exec_()
 
 def host_party():
-    pass        
+    host_dialog = host_tab()
+    host_dialog.exec_()
         
 #Drive functions
 def import_file():
-    drive_test = google_drive_downloader_app()
-    drive_test.exec_()
-        
-
+    drive_dialog = google_drive_downloader_app()
+    drive_dialog.exec_()
         
