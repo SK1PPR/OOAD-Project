@@ -37,15 +37,17 @@ class video_frame(QtWidgets.QWidget):
         self.forward_btn.clicked.connect(self.forward)
         self.backward_btn.clicked.connect(self.previous)
         
-        
-        
+        #time slider
         self.time_slider = QtWidgets.QSlider(QtCore.Qt.Horizontal)
         self.time_slider.setRange(0,RANGE)
         self.time_slider.sliderMoved.connect(self.set_position)
         self.is_dragged = False
         
-        
-        
+        #volume slider
+        self.volume_slider = QtWidgets.QSlider(QtCore.Qt.Horizontal)
+        self.volume_slider.setRange(0, 100)
+        self.volume_slider.valueChanged.connect(self.change_volume)
+
         #initialize mediaplayer
         self.media_player_widget = media_player(self)
         
@@ -57,8 +59,9 @@ class video_frame(QtWidgets.QWidget):
         btn_layout.addWidget(self.play_btn, 1)
         btn_layout.addWidget(self.forward_btn, 1)
         btn_layout.addItem(space2)
-        btn_layout.addWidget(self.volume_down, 1)
-        btn_layout.addWidget(self.volume_up, 1)
+        # btn_layout.addWidget(self.volume_down, 1)
+        # btn_layout.addWidget(self.volume_up, 1)
+        btn_layout.addWidget(self.volume_slider,1)
         btn_layout.setContentsMargins(0,0,0,0)
         
         
@@ -113,6 +116,9 @@ class video_frame(QtWidgets.QWidget):
             self.media_player_widget.play()
         else:
             pass
+    
+    def change_volume(self,volume):
+        self.media_player_widget.setVolume(volume)
         
                 
      
