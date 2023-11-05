@@ -19,17 +19,14 @@ class video_frame(QtWidgets.QWidget):
         self.play_btn = QtWidgets.QPushButton()
         self.forward_btn = QtWidgets.QPushButton()
         self.backward_btn = QtWidgets.QPushButton()
-        self.volume_up = QtWidgets.QPushButton()
-        self.volume_down = QtWidgets.QPushButton()
         self.start_cut = QtWidgets.QPushButton()
         self.end_cut = QtWidgets.QPushButton()
         self.add_to_timeline = QtWidgets.QPushButton()
         self.save_timeline = QtWidgets.QPushButton()
+        self.vol_icon = QtWidgets.QPushButton()
         self.play_btn.setEnabled(False)
         self.forward_btn.setEnabled(False)
         self.backward_btn.setEnabled(False)
-        self.volume_up.setEnabled(False)
-        self.volume_down.setEnabled(False)
         self.start_cut.setEnabled(False)
         self.end_cut.setEnabled(False)
         self.add_to_timeline.setEnabled(False)
@@ -42,15 +39,24 @@ class video_frame(QtWidgets.QWidget):
         self.play_btn.setIcon(self.style().standardIcon(QtWidgets.QStyle.SP_MediaPause))
         self.forward_btn.setIcon(self.style().standardIcon(QtWidgets.QStyle.SP_MediaSeekForward))
         self.backward_btn.setIcon(self.style().standardIcon(QtWidgets.QStyle.SP_MediaSeekBackward))
-        self.volume_up.setIcon(self.style().standardIcon(QtWidgets.QStyle.SP_ArrowUp))
-        self.volume_down.setIcon(self.style().standardIcon(QtWidgets.QStyle.SP_ArrowDown))
         self.start_cut.setIcon(self.style().standardIcon(QtWidgets.QStyle.SP_ArrowDown))
+        self.vol_icon.setIcon(self.style().standardIcon(QtWidgets.QStyle.SP_MediaVolume))
         
         self.time_slider = QtWidgets.QSlider(QtCore.Qt.Horizontal)
         self.time_slider.setRange(0,RANGE)
         self.time_slider.setSingleStep(1)
         self.time_slider.sliderMoved.connect(self.set_position)
         self.is_dragged = False
+
+        #Tool Tips
+        self.play_btn.setToolTip("Play/Pause")
+        self.forward_btn.setToolTip("Play next media file")
+        self.backward_btn.setToolTip("Play previous media file")
+        self.start_cut.setToolTip("Start cut")
+        self.end_cut.setToolTip("End Cut")
+        self.add_to_timeline.setToolTip("Add to timeline")
+        self.save_timeline.setToolTip("Save the current timeline")
+        self.vol_icon.setToolTip("Adjust volume")
         
         #Connect buttons to functions
         self.is_paused = False
@@ -82,22 +88,25 @@ class video_frame(QtWidgets.QWidget):
         
         
         btn_layout = QtWidgets.QHBoxLayout()
-        space1 = QtWidgets.QSpacerItem(75,0, QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Minimum)
-        space2 = QtWidgets.QSpacerItem(75,0, QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Minimum)
-        space3 = QtWidgets.QSpacerItem(75,0, QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Minimum)
-        # space4 = QtWidgets.QSpacerItem(100, 0, QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Minimum)
+        space1 = QtWidgets.QSpacerItem(100,0, QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Minimum)
+        space2 = QtWidgets.QSpacerItem(300,0, QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Minimum)
+        space3 = QtWidgets.QSpacerItem(100,0, QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Minimum)
+
         btn_layout.addItem(space1)
+
         btn_layout.addWidget(self.backward_btn, 1)
         btn_layout.addWidget(self.play_btn, 1)
         btn_layout.addWidget(self.forward_btn, 1)
+
         btn_layout.addItem(space2)
-        # # btn_layout.addWidget(self.volume_down, 1)
-        # # btn_layout.addWidget(self.volume_up, 1)
+
         btn_layout.addWidget(self.start_cut, 1)
         btn_layout.addWidget(self.end_cut, 1)
         btn_layout.addWidget(self.add_to_timeline, 1)
         btn_layout.addWidget(self.save_timeline, 1)        
-        btn_layout.addWidget(self.volume_slider,1)
+        btn_layout.addWidget(self.vol_icon, 1)        
+        btn_layout.addWidget(self.volume_slider,2)
+
         btn_layout.setContentsMargins(0,0,0,0)
         btn_layout.addItem(space3)
         
@@ -149,8 +158,6 @@ class video_frame(QtWidgets.QWidget):
         self.play_btn.setEnabled(True)
         self.forward_btn.setEnabled(True)
         self.backward_btn.setEnabled(True)
-        self.volume_up.setEnabled(True)
-        self.volume_down.setEnabled(True)
         self.start_cut.setEnabled(True)
         self.end_cut.setEnabled(True)
         self.add_to_timeline.setEnabled(True)
