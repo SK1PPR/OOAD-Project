@@ -58,7 +58,7 @@ class video_frame(QtWidgets.QWidget):
         self.start_cut.clicked.connect(self.cutting_start)
         self.end_cut.clicked.connect(self.cutting_end)
         self.add_to_timeline.clicked.connect(self.adding_timeline)
-        self.start_cut.clicked.connect(Buttons.save_all)
+        self.save_timeline.clicked.connect(self.saving_timeline)
                
         
         
@@ -108,14 +108,17 @@ class video_frame(QtWidgets.QWidget):
         return (int)((self.time_slider.value())*(self.media_player_widget.duration()/(1000*RANGE)))
     
     def cutting_start(self):
-        print("check")
-        return Buttons.start_cutting(self.get_time())
+        # print("check")
+        return Buttons.start_cutting(self,self.get_time())
     
     def cutting_end(self):
-        return Buttons.end_cutting(self.get_time())
+        return Buttons.end_cutting(self,self.get_time())
     
     def adding_timeline(self):
         return Buttons.add_it(self)
+    
+    def saving_timeline(self):
+        return Buttons.save_all()
         
     def enable(self):
         self.play_btn.setEnabled(True)

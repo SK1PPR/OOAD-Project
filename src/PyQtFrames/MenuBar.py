@@ -17,7 +17,6 @@ class menu_bar(QtWidgets.QMenuBar):
         self.setEnabled(True)
         self.setNativeMenuBar(False)
         self.setGeometry(0,0,700,30)
-        self.currfile = None
         self.playlist = playlist()
         
         # <-- Import icons over here -->
@@ -58,8 +57,6 @@ class menu_bar(QtWidgets.QMenuBar):
         global MEDIA_EXTENSIONS
         
         filename, _ = QtWidgets.QFileDialog.getOpenFileName(self, "Open Video", '', 'Video (*mp4 *avi *mkv *flv *mov);;Audio (*mp3)')
-        self.currfile = filename
-        print(self.currfile)
         
         if filename is not None:
             #need to check if the file is of supported format
