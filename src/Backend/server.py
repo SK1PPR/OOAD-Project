@@ -1,6 +1,6 @@
 import sys, threading, struct, select, os, socket
 
-class ChatServer:
+class chat_server:
     
     def __init__(self, ip, port, max_number_of_connections=5):
         self.client_lists = set()
@@ -14,6 +14,7 @@ class ChatServer:
         self.server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.server_socket.bind((self.ip, self.port))
         self.server_socket.listen(self.max_number_of_connections)
+        print("Server listening on" + self.ip + ":" + str(self.port))
         
     def listen_for_connections(self):
         while True:

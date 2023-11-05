@@ -1,5 +1,5 @@
 from PyQt5 import QtWidgets, QtGui
-from src.Backend.playlist import playlist
+from src.Backend.Playlist import playlist
 from src.Layouts.mainPlayer import main_player
 
 

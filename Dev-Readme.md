@@ -31,7 +31,7 @@ put 'x' in the checkboxes to show that the task has finished
 - [x] Opening other layouts
 
 ### Watch Party Implementation
-- [ ] Watch Party Join/Host screen integration
+- [x] Watch Party Join/Host screen integration
 - [ ] Video Streaming
 - [ ] Audio Streaming
 - [ ] Chat Integration
