@@ -11,4 +11,3 @@ class controller(QtWidgets.QMainWindow):
     def set_main_player(self, parent):
         self.window = main_player(parent)
         
-    

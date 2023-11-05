@@ -20,7 +20,7 @@ class playlist(object):
     @change_callback.setter
     def change_callback(self, value):
         self._change_callback = value
-        
+    
     @property
     def list(self):
         return self._list

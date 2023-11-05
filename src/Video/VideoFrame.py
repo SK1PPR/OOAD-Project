@@ -1,8 +1,9 @@
 from .MediaPlayer import media_player
 from PyQt5 import QtWidgets, QtCore
 from ..Backend.Playlist import playlist
+from ..Editor.edit import *
 
-RANGE = 1000
+RANGE = 10000
 
 class video_frame(QtWidgets.QWidget):
     
@@ -18,48 +19,68 @@ class video_frame(QtWidgets.QWidget):
         self.backward_btn = QtWidgets.QPushButton()
         self.volume_up = QtWidgets.QPushButton()
         self.volume_down = QtWidgets.QPushButton()
+        self.start_cut = QtWidgets.QPushButton()
+        self.end_cut = QtWidgets.QPushButton()
+        self.add_to_timeline = QtWidgets.QPushButton()
+        self.save_timeline = QtWidgets.QPushButton()
         self.play_btn.setEnabled(False)
         self.forward_btn.setEnabled(False)
         self.backward_btn.setEnabled(False)
         self.volume_up.setEnabled(False)
         self.volume_down.setEnabled(False)
+        self.start_cut.setEnabled(False)
+        self.end_cut.setEnabled(False)
+        self.add_to_timeline.setEnabled(False)
+        self.save_timeline.setEnabled(False)
         
+        #initialize mediaplayer
+        self.media_player_widget = media_player(self)
+
         #Button icons
         self.play_btn.setIcon(self.style().standardIcon(QtWidgets.QStyle.SP_MediaPause))
         self.forward_btn.setIcon(self.style().standardIcon(QtWidgets.QStyle.SP_MediaSeekForward))
         self.backward_btn.setIcon(self.style().standardIcon(QtWidgets.QStyle.SP_MediaSeekBackward))
         self.volume_up.setIcon(self.style().standardIcon(QtWidgets.QStyle.SP_ArrowUp))
         self.volume_down.setIcon(self.style().standardIcon(QtWidgets.QStyle.SP_ArrowDown))
+        self.start_cut.setIcon(self.style().standardIcon(QtWidgets.QStyle.SP_ArrowDown))
+        
+        self.time_slider = QtWidgets.QSlider(QtCore.Qt.Horizontal)
+        self.time_slider.setRange(0,RANGE)
+        self.time_slider.setSingleStep(1)
+        self.time_slider.sliderMoved.connect(self.set_position)
+        self.is_dragged = False
         
         #Connect buttons to functions
         self.is_paused = False
         self.play_btn.clicked.connect(self.play_pause)
         self.forward_btn.clicked.connect(self.forward)
         self.backward_btn.clicked.connect(self.previous)
+        self.start_cut.clicked.connect(self.cutting_start)
+        self.end_cut.clicked.connect(self.cutting_end)
+        self.add_to_timeline.clicked.connect(self.adding_timeline)
+        self.save_timeline.clicked.connect(self.saving_timeline)
+               
         
         
-        
-        self.time_slider = QtWidgets.QSlider(QtCore.Qt.Horizontal)
-        self.time_slider.setRange(0,RANGE)
-        self.time_slider.sliderMoved.connect(self.set_position)
-        self.is_dragged = False
-        
-        
-        
-        #initialize mediaplayer
-        self.media_player_widget = media_player(self)
         
         btn_layout = QtWidgets.QHBoxLayout()
-        space1 = QtWidgets.QSpacerItem(200,0, QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Minimum)
-        space2 = QtWidgets.QSpacerItem(100,0, QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Minimum)
+        space1 = QtWidgets.QSpacerItem(75,0, QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Minimum)
+        space2 = QtWidgets.QSpacerItem(75,0, QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Minimum)
+        space3 = QtWidgets.QSpacerItem(75,0, QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Minimum)
+        # space4 = QtWidgets.QSpacerItem(100, 0, QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Minimum)
         btn_layout.addItem(space1)
         btn_layout.addWidget(self.backward_btn, 1)
         btn_layout.addWidget(self.play_btn, 1)
         btn_layout.addWidget(self.forward_btn, 1)
         btn_layout.addItem(space2)
-        btn_layout.addWidget(self.volume_down, 1)
-        btn_layout.addWidget(self.volume_up, 1)
+        # btn_layout.addWidget(self.volume_down, 1)
+        # btn_layout.addWidget(self.volume_up, 1)
+        btn_layout.addWidget(self.start_cut, 1)
+        btn_layout.addWidget(self.end_cut, 1)
+        btn_layout.addWidget(self.add_to_timeline, 1)
+        btn_layout.addWidget(self.save_timeline, 1)        
         btn_layout.setContentsMargins(0,0,0,0)
+        btn_layout.addItem(space3)
         
         
         screen_layout = QtWidgets.QVBoxLayout()
@@ -81,6 +102,23 @@ class video_frame(QtWidgets.QWidget):
         if self.media_player_widget.duration() != 0:
             pos = (int((position / self.media_player_widget.duration()) * RANGE))
             self.time_slider.setValue(pos)
+
+    def get_time(self):
+        global RANGE 
+        return (int)((self.time_slider.value())*(self.media_player_widget.duration()/(1000*RANGE)))
+    
+    def cutting_start(self):
+        # print("check")
+        return Buttons.start_cutting(self,self.get_time())
+    
+    def cutting_end(self):
+        return Buttons.end_cutting(self,self.get_time())
+    
+    def adding_timeline(self):
+        return Buttons.add_it(self)
+    
+    def saving_timeline(self):
+        return Buttons.save_all()
         
     def enable(self):
         self.play_btn.setEnabled(True)
@@ -88,6 +126,10 @@ class video_frame(QtWidgets.QWidget):
         self.backward_btn.setEnabled(True)
         self.volume_up.setEnabled(True)
         self.volume_down.setEnabled(True)
+        self.start_cut.setEnabled(True)
+        self.end_cut.setEnabled(True)
+        self.add_to_timeline.setEnabled(True)
+        self.save_timeline.setEnabled(True)
         
     def play_pause(self):
         if self.is_paused:
