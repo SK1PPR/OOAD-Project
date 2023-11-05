@@ -1,4 +1,3 @@
-from moviepy.editor import VideoFileClip
 
 class Timeline:
     _instance = None

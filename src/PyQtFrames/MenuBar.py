@@ -95,28 +95,6 @@ def add_action(menu, name, shortcut, tip, func, icon=None):
     
 
 # File menu functions
-# def start_cut():
-    # declare slider time somewhere semi global, and link the front end slider to slider_object
-    # start_time = slider_object.value() * clip.length() / 100 
-    
-# def end_cut():
-    # declare slider time somewhere semi global, and link the front end slider to slider_object
-    # end_time = slider_object.value() * clip.length() / 100   
-
-# def add():
-    # add the current video, start time and end time to cut_video function and add the returned clip to trimmed_clips array
-    # if(start_time>=0 and end_time>0):
-    #   timeline_obj.add_clip(cut_video(clip, start_time, end_time))
-    #   start_time = -1
-    #   end_time = -1
-    # else:
-    #   kachra
-    
-# def empty():
-    # timeline_obj.clips.clear()
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
-#def save():
-    # run the loop in clips concatenate each of the files and store the file at a given location
 
     
 def open_playlist(self):

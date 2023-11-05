@@ -4,6 +4,10 @@ from tkinter import filedialog as fd
 from ..Backend.Playlist import playlist
 from ..Editor.timeline import Timeline
 
+
+import os
+os.environ["IMAGEIO_FFMPEG_EXE"] = "/usr/bin/ffmpeg"
+
 start_time = -1
 end_time = -1
 
