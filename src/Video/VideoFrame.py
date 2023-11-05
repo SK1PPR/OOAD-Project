@@ -2,6 +2,8 @@ from .MediaPlayer import media_player
 from PyQt5 import QtWidgets, QtCore
 from ..Backend.Playlist import playlist
 from ..Editor.edit import *
+from ..styles.custom_widgets.videoProgressBar import video_progress_bar
+from ..styles.custom_widgets.volumeSlider import volume_slider
 
 RANGE = 10000
 
@@ -55,6 +57,22 @@ class video_frame(QtWidgets.QWidget):
         self.play_btn.clicked.connect(self.play_pause)
         self.forward_btn.clicked.connect(self.forward)
         self.backward_btn.clicked.connect(self.previous)
+        
+        #time slider
+        self.time_slider = video_progress_bar(QtCore.Qt.Horizontal)
+        self.time_slider.setRange(0,RANGE)
+        self.time_slider.sliderPressed.connect(self.slider_being_moved)
+        self.time_slider.sliderMoved.connect(self.set_position)
+        self.time_slider.sliderReleased.connect(self.slider_stopped_moving)
+        self.is_dragged = False
+        
+        #volume slider
+        self.volume_slider = volume_slider(QtCore.Qt.Horizontal)
+        self.volume_slider.setRange(0, 100)
+        self.volume_slider.valueChanged.connect(self.change_volume)
+
+        #initialize mediaplayer
+        self.media_player_widget = media_player(self)
         self.start_cut.clicked.connect(self.cutting_start)
         self.end_cut.clicked.connect(self.cutting_end)
         self.add_to_timeline.clicked.connect(self.adding_timeline)
@@ -73,12 +91,13 @@ class video_frame(QtWidgets.QWidget):
         btn_layout.addWidget(self.play_btn, 1)
         btn_layout.addWidget(self.forward_btn, 1)
         btn_layout.addItem(space2)
-        # btn_layout.addWidget(self.volume_down, 1)
-        # btn_layout.addWidget(self.volume_up, 1)
+        # # btn_layout.addWidget(self.volume_down, 1)
+        # # btn_layout.addWidget(self.volume_up, 1)
         btn_layout.addWidget(self.start_cut, 1)
         btn_layout.addWidget(self.end_cut, 1)
         btn_layout.addWidget(self.add_to_timeline, 1)
         btn_layout.addWidget(self.save_timeline, 1)        
+        btn_layout.addWidget(self.volume_slider,1)
         btn_layout.setContentsMargins(0,0,0,0)
         btn_layout.addItem(space3)
         
@@ -119,7 +138,13 @@ class video_frame(QtWidgets.QWidget):
     
     def saving_timeline(self):
         return Buttons.save_all()
-        
+    
+    def slider_being_moved(self):
+        self.media_player_widget.blockSignals(True)
+    
+    def slider_stopped_moving(self):
+        self.media_player_widget.blockSignals(False)
+
     def enable(self):
         self.play_btn.setEnabled(True)
         self.forward_btn.setEnabled(True)
@@ -157,6 +182,9 @@ class video_frame(QtWidgets.QWidget):
             self.media_player_widget.play()
         else:
             pass
+    
+    def change_volume(self,volume):
+        self.media_player_widget.setVolume(volume)
         
                 
      
