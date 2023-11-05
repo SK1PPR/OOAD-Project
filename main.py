@@ -11,7 +11,6 @@ def main():
 		sys.exit(app.exec_())
   
 	except KeyboardInterrupt:
-		main_window.graceful_cleanup()
 		sys.exit(0)
 
 if __name__ == '__main__':

@@ -19,7 +19,6 @@ put 'x' in the checkboxes to show that the task has finished
 - [x] Drive Integration
 - [ ] Editor
 - [ ] Watch Party Implementation
-- [ ] Profiling and opening previous saves
 - [x] Playlist Implementation
 
 ### Main Player
@@ -39,12 +38,11 @@ put 'x' in the checkboxes to show that the task has finished
 - [ ] Connecting to the main player
 
 ### Editor
-- [ ] Cut in main player
+- [x] Cut in main player
 - [x] Slider
-- [ ] Timeline
-- [ ] Cursor
-- [ ] Syncing
-- [ ] Saving new file
+- [x] Syncing
+- [x] Saving new file
+- [ ] Error Handling
 
 ### Profiling
 
@@ -55,4 +53,7 @@ put 'x' in the checkboxes to show that the task has finished
 - [ ] VLC instead of PyQt
 - [ ] Installation guide Readme.md
 - [ ] Check support on other platforms
+- [ ] Remove Tkinter use PyQt
+- [ ] Timeline
+- [ ] Cursor
  
