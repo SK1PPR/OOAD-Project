@@ -1,5 +1,5 @@
-from ..Backend.Playlist import playlist
-from ..Backend.Playlist import get_media_files_from_folder
+from ..Backend.playlist import playlist
+from ..Backend.playlist import get_media_files_from_folder
 from PyQt5 import QtWidgets, QtCore
 from ..Drive.drive import google_drive_downloader_app
 from .WatchPartyWidgets import join_tab, host_tab

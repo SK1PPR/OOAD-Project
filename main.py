@@ -1,4 +1,3 @@
-
 from src.Controller import controller
 from PyQt5 import QtWidgets
 import sys

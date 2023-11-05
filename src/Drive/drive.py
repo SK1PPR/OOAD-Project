@@ -106,7 +106,7 @@ class google_drive_downloader_app(QtWidgets.QDialog):
         layout = QtWidgets.QVBoxLayout()
         folders = get_folders()
         
-        for folders in folders:
+        for folder in folders:
             checkbox = QtWidgets.QCheckBox(folder['name'])
             self.folder_checkboxes.append(checkbox)
             layout.addWidget(checkbox)

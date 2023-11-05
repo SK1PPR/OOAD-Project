@@ -12,7 +12,7 @@ class join_tab(QtWidgets.QDialog):
         id_input.setPlaceholderText("Enter session ID...")
         passkey_input = QtWidgets.QLineEdit()
         passkey_input.setPlaceholderText("Enter session passkey...")
-        connect_button = QtWidgets.QPushButton()
+        connect_button = QtWidgets.QPushButton("Join")
         connect_button.clicked.connect(call_server)
         layout.addWidget(id_input)
         layout.addWidget(passkey_input)

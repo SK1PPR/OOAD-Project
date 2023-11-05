@@ -1,6 +1,6 @@
 from .MediaPlayer import media_player
 from PyQt5 import QtWidgets, QtCore
-from ..Backend.Playlist import playlist
+from ..Backend.playlist import playlist
 
 RANGE = 1000
 
