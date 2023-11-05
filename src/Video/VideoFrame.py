@@ -1,6 +1,8 @@
 from .MediaPlayer import media_player
 from PyQt5 import QtWidgets, QtCore
 from ..Backend.playlist import playlist
+from ..styles.custom_widgets.videoProgressBar import video_progress_bar
+from ..styles.custom_widgets.volumeSlider import volume_slider
 
 RANGE = 1000
 
@@ -38,13 +40,15 @@ class video_frame(QtWidgets.QWidget):
         self.backward_btn.clicked.connect(self.previous)
         
         #time slider
-        self.time_slider = QtWidgets.QSlider(QtCore.Qt.Horizontal)
+        self.time_slider = video_progress_bar(QtCore.Qt.Horizontal)
         self.time_slider.setRange(0,RANGE)
+        self.time_slider.sliderPressed.connect(self.slider_being_moved)
         self.time_slider.sliderMoved.connect(self.set_position)
+        self.time_slider.sliderReleased.connect(self.slider_stopped_moving)
         self.is_dragged = False
         
         #volume slider
-        self.volume_slider = QtWidgets.QSlider(QtCore.Qt.Horizontal)
+        self.volume_slider = volume_slider(QtCore.Qt.Horizontal)
         self.volume_slider.setRange(0, 100)
         self.volume_slider.valueChanged.connect(self.change_volume)
 
@@ -84,7 +88,13 @@ class video_frame(QtWidgets.QWidget):
         if self.media_player_widget.duration() != 0:
             pos = (int((position / self.media_player_widget.duration()) * RANGE))
             self.time_slider.setValue(pos)
-        
+    
+    def slider_being_moved(self):
+        self.media_player_widget.blockSignals(True)
+    
+    def slider_stopped_moving(self):
+        self.media_player_widget.blockSignals(False)
+
     def enable(self):
         self.play_btn.setEnabled(True)
         self.forward_btn.setEnabled(True)
