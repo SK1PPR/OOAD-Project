@@ -10,4 +10,4 @@ This is a project made for CSN-291, by Group 12. Ours is a desktop based media p
 ## Installation Guide
 
 Install codec if you are using windows
-
+Download link : https://files3.codecguide.com/K-Lite_Codec_Pack_1790_Basic.exe
