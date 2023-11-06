@@ -2,7 +2,6 @@ from ..Backend.Playlist import playlist
 from ..Backend.Playlist import get_media_files_from_folder
 from PyQt5 import QtWidgets, QtCore
 from ..Drive.drive import google_drive_downloader_app
-from .WatchPartyWidgets import join_tab, host_tab
 import os
 
 MEDIA_EXTENSIONS = ['.mp3', '.mp4', '.avi', '.mkv', '.mov', '.flv']
