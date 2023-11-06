@@ -17,8 +17,8 @@ put 'x' in the checkboxes to show that the task has finished
 ## Tasks Pending
 - [x] Main Player
 - [x] Drive Integration
-- [ ] Editor
-- [ ] Watch Party Implementation
+- [x] Editor
+- [x] Watch Party Implementation
 - [x] Playlist Implementation
 
 ### Main Player
@@ -26,16 +26,16 @@ put 'x' in the checkboxes to show that the task has finished
 - [x] Add status bar
 - [x] Add shortucts
 - [x] Add message bar
-- [ ] Error and exception case handling
+- [x] Error and exception case handling
 - [x] Opening other layouts
 
 ### Watch Party Implementation
 - [x] Watch Party Join/Host screen integration
-- [ ] Video Streaming
-- [ ] Audio Streaming
-- [ ] Chat Integration
+- [x] Video Streaming
+- [x] Audio Streaming
+- [x] Chat Integration
 - [ ] Errors and exception handling
-- [ ] Connecting to the main player
+- [x] Connecting to the main player
 
 ### Editor
 - [x] Cut in main player
@@ -43,11 +43,6 @@ put 'x' in the checkboxes to show that the task has finished
 - [x] Syncing
 - [x] Saving new file
 - [ ] Error Handling
-
-### Profiling
-
-### Playlist Implementation
-
 
 ### Extras
 - [ ] VLC instead of PyQt
