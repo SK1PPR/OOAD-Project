@@ -21,7 +21,7 @@ class video_frame(QtWidgets.QWidget):
         self.backward_btn = QtWidgets.QPushButton()
         self.start_cut = QtWidgets.QPushButton('Start Cut')
         self.end_cut = QtWidgets.QPushButton('End Cut')
-        self.add_to_timeline = QtWidgets.QPushButton('Add to timeline')
+        self.add_to_timeline = QtWidgets.QPushButton('Add Clip')
         self.save_timeline = QtWidgets.QPushButton('Save')
         self.vol_icon = QtWidgets.QPushButton()
         self.play_btn.setEnabled(False)
