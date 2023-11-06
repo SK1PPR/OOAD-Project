@@ -111,7 +111,7 @@ class google_drive_downloader_app(QtWidgets.QDialog):
             self.folder_checkboxes.append(checkbox)
             layout.addWidget(checkbox)
             
-        download_button = QtWidgets.QPushButton("Donwload Selected Folder")
+        download_button = QtWidgets.QPushButton("Download Selected Folder")
         download_button.clicked.connect(self.download_selected_folder)
         layout.addWidget(download_button)
         
