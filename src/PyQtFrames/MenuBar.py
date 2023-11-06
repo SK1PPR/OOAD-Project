@@ -9,9 +9,6 @@ MEDIA_EXTENSIONS = ['.mp3', '.mp4', '.avi', '.mkv', '.mov', '.flv']
 
 class menu_bar(QtWidgets.QMenuBar):
     
-    # <--Signals-->
-    open_file_signal = QtCore.pyqtSignal()
-    
     
     def __init__(self, parent=None):
         #Create the menu bar
@@ -27,14 +24,12 @@ class menu_bar(QtWidgets.QMenuBar):
                 
         #Create the various menu buttons
         file_menu = QtWidgets.QMenu("&File" ,self)
-        edit_menu = QtWidgets.QMenu("&Edit" ,self)
         wp_menu = QtWidgets.QMenu("&WatchParty" ,self)
         help_menu = QtWidgets.QMenu("&Help" ,self)
         drive_menu = QtWidgets.QMenu("&Drive" ,self)
         
         #Adding the menu buttons
         self.addMenu(file_menu)
-        self.addMenu(edit_menu)
         self.addMenu(wp_menu)
         self.addMenu(help_menu)
         self.addMenu(drive_menu)
@@ -43,17 +38,9 @@ class menu_bar(QtWidgets.QMenuBar):
         #File menu       
         add_action(file_menu, "&Open File", "Ctrl+O", "Open file", self.open_file)
         add_action(file_menu, "&Open Playlist", "Ctrl+Shift+O", "Open playlist", self.open_playlist)
-        add_action(file_menu, "&Save", "Ctrl+S", "Save file with current name", save_file)
-        add_action(file_menu, "Save As...", "Ctrl+Shift+S", "Save file as...", save_as)
-        #Edit menu
-        add_action(edit_menu, "Copy", "Ctrl+C", "Copy clip", copy_file)
-        add_action(edit_menu, "Cut", "Ctrl+X", "Cut current clip", cut_file)
-        add_action(edit_menu, "Paste", "Ctrl+V", "Paste clip from clipboard", paste_file)
-        #WP menu
-        add_action(wp_menu, "Join", "Ctrl+K", "Join an existing party", join_party)
-        add_action(wp_menu, "Host", "Ctrl+L", "Host a new Watch-Party", host_party)
+        #WP Menu
+        add_action(wp_menu, "Start", "Ctrl+L", "Host a new Watch-Party", self.start_party)
         #Drive menu
-        # <-- Add functionality to display the current acount status -->
         add_action(drive_menu, "Import", "Ctrl-I", "Import directly from Google Drive", import_file)
         
     #File menu functionality
@@ -78,10 +65,10 @@ class menu_bar(QtWidgets.QMenuBar):
             playlist_t = playlist()
             for file in files:
                 playlist_t.add_file(file)
+                
+    def start_party(self):
+        self.parent.start_party()
             
-        
-        
-        
       
 def add_action(menu, name, shortcut, tip, func, icon=None):
     if icon is None:
@@ -92,43 +79,9 @@ def add_action(menu, name, shortcut, tip, func, icon=None):
     action.setStatusTip(tip)
     action.triggered.connect(func)
     menu.addAction(action)
-    
-
-# File menu functions
-
-    
-def open_playlist(self):
-    pass
-    # self.open_file_signal.emit("Hello darkness my old friend!")        
-
-        
-def save_file():
-    pass 
-        
-def save_as():
-    pass
-   
-#Editor functions     
-def copy_file():
-    pass
-
-def cut_file():
-    pass
-
-def paste_file():
-    pass        
-        
-#WP functions
-def join_party():
-    join_dialog = join_tab()
-    join_dialog.exec_()
-
-def host_party():
-    host_dialog = host_tab()
-    host_dialog.exec_()
+       
         
 #Drive functions
 def import_file():
     drive_dialog = google_drive_downloader_app()
     drive_dialog.exec_()
-        
