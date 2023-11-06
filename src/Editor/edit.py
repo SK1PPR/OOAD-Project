@@ -60,10 +60,9 @@ class Buttons:
 
     def save_all():
         time = Timeline()
-        file_path = fd.asksaveasfilename(
-                title="Save As",
-                filetypes=[("MP4 files", "*.mp4")]
-            )
+        file_path = fd.asksaveasfilename(title="Save As",filetypes=[("MP4 files", "*.mp4")])
+        file_path , _ = os.path.splitext(file_path)
+        file_path += '.mp4'
         final_clip = concatenate_videoclips(time._clips)
         final_clip.write_videofile(rf'{file_path}',codec = 'libx264')
         # for items in time._clips:
