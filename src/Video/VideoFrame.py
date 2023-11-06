@@ -89,7 +89,7 @@ class video_frame(QtWidgets.QWidget):
         
         btn_layout = QtWidgets.QHBoxLayout()
         space1 = QtWidgets.QSpacerItem(100,0, QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Minimum)
-        space2 = QtWidgets.QSpacerItem(300,0, QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Minimum)
+        space2 = QtWidgets.QSpacerItem(600,0, QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Minimum)
         space3 = QtWidgets.QSpacerItem(100,0, QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Minimum)
 
         btn_layout.addItem(space1)
@@ -108,7 +108,7 @@ class video_frame(QtWidgets.QWidget):
         btn_layout.addWidget(self.volume_slider,2)
 
         btn_layout.setContentsMargins(0,0,0,0)
-        btn_layout.addItem(space3)
+        # btn_layout.addItem(space3)
         
         
         screen_layout = QtWidgets.QVBoxLayout()

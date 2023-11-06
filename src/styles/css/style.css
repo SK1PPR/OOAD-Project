@@ -11,10 +11,10 @@ QPushButton{
     color: #0d1f2d;
     font-size: 25px;
     padding : 10px;
-    min-width: 80px;
+    min-width: 5em;
     min-height: 40px;
     max-height: 60px;
-    max-width: 100px;
+    max-width: 20em;
 }
 
 QPushButton:hover {
@@ -82,5 +82,8 @@ QCheckBox:checked {
 }
 
 volume_slider{
-    max-width: 300px;
+    min-width : 400px;
+    min-height: 40px;
+    max-height: 60px;
+    max-width: 400px;
 }
