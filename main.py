@@ -3,8 +3,9 @@ from PyQt5 import QtWidgets
 import sys
 from src.styles.custom_palettes import darkPalette
 from src.WPmainWindow import MainClass
+import os
 
-stylesheet = './src/styles/css/style.css'
+stylesheet = os.path.join(os.path.dirname(__file__),'src','styles','css','style.css')
 #No changes to be made to this file
 def main():
 	try:
