@@ -19,10 +19,10 @@ class video_frame(QtWidgets.QWidget):
         self.play_btn = QtWidgets.QPushButton()
         self.forward_btn = QtWidgets.QPushButton()
         self.backward_btn = QtWidgets.QPushButton()
-        self.start_cut = QtWidgets.QPushButton()
-        self.end_cut = QtWidgets.QPushButton()
-        self.add_to_timeline = QtWidgets.QPushButton()
-        self.save_timeline = QtWidgets.QPushButton()
+        self.start_cut = QtWidgets.QPushButton('Start Cut')
+        self.end_cut = QtWidgets.QPushButton('End Cut')
+        self.add_to_timeline = QtWidgets.QPushButton('Add to timeline')
+        self.save_timeline = QtWidgets.QPushButton('Save')
         self.vol_icon = QtWidgets.QPushButton()
         self.play_btn.setEnabled(False)
         self.forward_btn.setEnabled(False)
@@ -37,9 +37,9 @@ class video_frame(QtWidgets.QWidget):
 
         #Button icons
         self.play_btn.setIcon(self.style().standardIcon(QtWidgets.QStyle.SP_MediaPause))
-        self.forward_btn.setIcon(self.style().standardIcon(QtWidgets.QStyle.SP_MediaSeekForward))
-        self.backward_btn.setIcon(self.style().standardIcon(QtWidgets.QStyle.SP_MediaSeekBackward))
-        self.start_cut.setIcon(self.style().standardIcon(QtWidgets.QStyle.SP_ArrowDown))
+        self.forward_btn.setIcon(self.style().standardIcon(QtWidgets.QStyle.SP_MediaSkipForward))
+        self.backward_btn.setIcon(self.style().standardIcon(QtWidgets.QStyle.SP_MediaSkipBackward))
+        self.save_timeline.setIcon(self.style().standardIcon(QtWidgets.QStyle.SP_DialogSaveButton))
         self.vol_icon.setIcon(self.style().standardIcon(QtWidgets.QStyle.SP_MediaVolume))
         
         self.time_slider = QtWidgets.QSlider(QtCore.Qt.Horizontal)
@@ -83,6 +83,7 @@ class video_frame(QtWidgets.QWidget):
         self.end_cut.clicked.connect(self.cutting_end)
         self.add_to_timeline.clicked.connect(self.adding_timeline)
         self.save_timeline.clicked.connect(self.saving_timeline)
+        self.vol_icon.clicked.connect(self.toggle_mute)
                
         
         
@@ -192,6 +193,14 @@ class video_frame(QtWidgets.QWidget):
     
     def change_volume(self,volume):
         self.media_player_widget.setVolume(volume)
+
+    def toggle_mute(self):
+        if self.media_player_widget.isMuted():
+            self.media_player_widget.setMuted(False)  # Unmute
+            self.vol_icon.setIcon(self.style().standardIcon(QtWidgets.QStyle.SP_MediaVolume))
+        else:
+            self.media_player_widget.setMuted(True)  # Mute
+            self.vol_icon.setIcon(self.style().standardIcon(QtWidgets.QStyle.SP_MediaVolumeMuted))
         
                 
      
