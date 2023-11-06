@@ -198,9 +198,11 @@ class video_frame(QtWidgets.QWidget):
         if self.media_player_widget.isMuted():
             self.media_player_widget.setMuted(False)  # Unmute
             self.vol_icon.setIcon(self.style().standardIcon(QtWidgets.QStyle.SP_MediaVolume))
+            self.volume_slider.setValue(50)
         else:
             self.media_player_widget.setMuted(True)  # Mute
             self.vol_icon.setIcon(self.style().standardIcon(QtWidgets.QStyle.SP_MediaVolumeMuted))
+            self.volume_slider.setValue(0)
         
                 
      
