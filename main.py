@@ -14,7 +14,7 @@ def main():
 		with open(stylesheet,'r') as file:
 			app.setStyleSheet(file.read())
 		main_window=controller()
-		main_window.show()
+		main_window.showMaximized()
 		sys.exit(app.exec_())
 	except KeyboardInterrupt:
 		sys.exit(0)
