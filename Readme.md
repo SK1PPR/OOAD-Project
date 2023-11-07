@@ -11,3 +11,24 @@ This is a project made for CSN-291, by Group 12. Ours is a desktop based media p
 
 Install codec if you are using windows
 Download link : https://files3.codecguide.com/K-Lite_Codec_Pack_1790_Basic.exe
+
+
+# Add project name here
+
+## Table of Contents
+
+## Requirements
+
+## Installation
+
+## Configuration
+
+
+
+## Maintainers
+
+~ Anup Savaliya - 
+~ Khushal Agrawal - 
+~ Rushit Pancholi -
+~ Swapnil Garg -
+~ Vraj Tamakuwala -

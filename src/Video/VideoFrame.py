@@ -1,6 +1,6 @@
 from .MediaPlayer import media_player
 from PyQt5 import QtWidgets, QtCore
-from ..Backend.Playlist import playlist
+from ..Backend.playlist import playlist
 from ..Editor.edit import *
 from ..styles.custom_widgets.videoProgressBar import video_progress_bar
 from ..styles.custom_widgets.volumeSlider import volume_slider

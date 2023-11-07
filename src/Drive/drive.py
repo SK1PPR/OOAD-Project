@@ -1,11 +1,3 @@
-#How to use this:
-# get_folders() returns list of dicts. Each dict has ID and name of individual folder found in the drive
-# Show the user the folders on the GUI
-# Ask the user to select one and proceed
-# Ask user to select location where to download and provide folder name as well
-# call download_to_location(folder_id, save_directory) passing in the values as per user selection
-# Done :}
-
 import os
 import pickle
 import googleapiclient.discovery

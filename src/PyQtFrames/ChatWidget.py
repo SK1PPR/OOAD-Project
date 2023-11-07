@@ -1,9 +1,9 @@
-from PyQt5 import QtWidgets,QtCore
-from ..Backend.Client import chat_client
-import threading
+from PyQt5 import QtGui,QtWidgets,QtCore
+from ..Backend.Client import ChatClient
+import sys,socket, threading
 
 
-class chat_widget(QtWidgets.QWidget):
+class ChatWidget(QtWidgets.QWidget):
 	def __init__(self,name):
 		super().__init__()
 		self.name=name
@@ -42,14 +42,14 @@ class chat_widget(QtWidgets.QWidget):
 				self.inputBox.setText('')
 		return super().eventFilter(obj, event)
 
-	def intializeClient(self, addr, port, user_password, is_host):
+	def intializeClient(self, addr, port, userPassword, isHost):
 		if self.client:
 			self.client.quit()
-		self.client = chat_client(addr,port, is_host)
+		self.client = ChatClient(addr,port, isHost)
 		#self.client.reciveMessage.connect(self.addMessage)
 		self.client.receiveMessageTrigger.connect(self.addMessage)
 		threading.Thread(target= self.client.listenForIncomingMessages, daemon= True).start()
-		self.client.sendMessage(user_password)
+		self.client.sendMessage(userPassword)
 		self.client.sendMessage('1234joined: '+self.name)
 		self.sendButton.setEnabled(True)
 		self.inputBox.setEnabled(True)

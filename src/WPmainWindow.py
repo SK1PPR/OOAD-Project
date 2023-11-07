@@ -1,11 +1,20 @@
 from PyQt5 import QtWidgets,QtGui,QtCore
-from .PyQtFrames.ChatWidget import chat_widget
+from .PyQtFrames.ChatWidget import ChatWidget
 from .PyQtFrames.WPToolBarWidget import ToolBar
 from .PyQtFrames.WPVideoFrame import VideoFrame
-from pyngrok import ngrok,conf
 from .Video.Player import Player
-from .Backend.Server import chat_server
+from .Backend.server import ChatServer
 import sys, os, json, base64, threading, time, random, string, pyperclip, urllib
+
+import ssl
+from pyngrok import ngrok, conf, installer
+pyngrok_config = conf.get_default()
+if not os.path.exists(pyngrok_config.ngrok_path):
+    myssl = ssl.create_default_context()
+    myssl.check_hostname=False
+    myssl.verify_mode=ssl.CERT_NONE
+    installer.install_ngrok(pyngrok_config.ngrok_path, context=myssl)
+public_url = ngrok.connect(5000).public_url
 
 DEBUG = False
 
@@ -51,7 +60,7 @@ class MainClass(QtWidgets.QMainWindow):
 
 		#Adding Differet Frames and Widgets
 		self.videoFrame = VideoFrame()
-		self.chatWidget = chat_widget(self.name)
+		self.chatWidget = ChatWidget(self.name)
 		self.toolBar = ToolBar(self.player,self)
 		#FinalLayout
 		self.vBoxLayout = QtWidgets.QVBoxLayout()
@@ -73,7 +82,7 @@ class MainClass(QtWidgets.QMainWindow):
 		self.videoSyncTimer = QtCore.QTimer(self)
 		self.videoSyncTimer.setInterval(1000)
 		self.videoSyncTimer.timeout.connect(self.sendTimeStamp)
-  
+
 	def updateUI(self):
 		mediaPos = int(self.player.getPosition()*1000)
 		self.toolBar.positionSlider.setValue(mediaPos)
@@ -100,7 +109,7 @@ class MainClass(QtWidgets.QMainWindow):
 	def createRandomUserPassword(self):
 		self._userName = ''.join(random.choices(string.ascii_letters + string.digits, k=20))
 		self._password = ''.join(random.choices(string.ascii_letters + string.digits, k=20))
-  
+
 	def _getConcatUserPassword(self):
 		return f'{self._userName}:{self._password}'
 

@@ -1,7 +1,5 @@
-import sys
-from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPainter, QColor,QPen
-from PyQt5.QtWidgets import QApplication, QMainWindow, QSlider, QVBoxLayout, QWidget
+from PyQt5.QtWidgets import QSlider
 
 class video_progress_bar(QSlider):
     def __init__(self,*a):

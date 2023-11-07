@@ -1,7 +1,7 @@
 from moviepy.editor import VideoFileClip, concatenate_videoclips
 import moviepy.editor as mp
 from tkinter import filedialog as fd
-from ..Backend.Playlist import playlist
+from ..Backend.playlist import playlist
 from ..Editor.timeline import Timeline
 
 
