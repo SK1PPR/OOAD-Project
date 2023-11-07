@@ -34,7 +34,7 @@ put 'x' in the checkboxes to show that the task has finished
 - [x] Video Streaming
 - [x] Audio Streaming
 - [x] Chat Integration
-- [ ] Errors and exception handling
+- [x] Errors and exception handling
 - [x] Connecting to the main player
 
 ### Editor
@@ -42,11 +42,9 @@ put 'x' in the checkboxes to show that the task has finished
 - [x] Slider
 - [x] Syncing
 - [x] Saving new file
-- [ ] Error Handling
+- [x] Error Handling
 
 ### Extras
-- [ ] VLC instead of PyQt
-- [ ] Installation guide Readme.md
 - [ ] Check support on other platforms
 - [ ] Remove Tkinter use PyQt
 - [ ] Timeline

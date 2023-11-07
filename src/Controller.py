@@ -20,7 +20,7 @@ class controller(QtWidgets.QMainWindow):
         self.setCentralWidget(frame)
         self.setStatusBar(status)
   
-        self.setWindowTitle("PyPlayer")
+        self.setWindowTitle("MediaWave")
         self.setGeometry(350,100,700,500)
         self.setWindowIcon(QtGui.QIcon("PlayerIcon.ico"))
         self.show()
