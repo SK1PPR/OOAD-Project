@@ -36,7 +36,7 @@ class menu_bar(QtWidgets.QMenuBar):
         # Adding actions and submenus
         #File menu       
         add_action(file_menu, "&Open File", "Ctrl+O", "Open file", self.open_file)
-        add_action(file_menu, "&Open Playlist", "Ctrl+Shift+O", "Open playlist", self.open_playlist)
+        add_action(file_menu, "&Extract media folder", "Ctrl+Shift+O", "Extract media folder", self.open_playlist)
         #WP Menu
         add_action(wp_menu, "Start", "Ctrl+L", "Host a new Watch-Party", self.start_party)
         #Drive menu
