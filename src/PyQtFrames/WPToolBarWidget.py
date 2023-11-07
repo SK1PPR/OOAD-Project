@@ -1,5 +1,6 @@
 from PyQt5 import QtWidgets,QtCore
-
+from ..styles.custom_widgets.videoProgressBar import video_progress_bar
+from ..styles.custom_widgets.volumeSlider import volume_slider
 class ToolBar(QtWidgets.QWidget):
 
 	def __init__(self, player, parentClass):
@@ -13,7 +14,7 @@ class ToolBar(QtWidgets.QWidget):
 		self.mainLayout = QtWidgets.QVBoxLayout()
 
 		#Position Slider
-		self.positionSlider = QtWidgets.QSlider(QtCore.Qt.Horizontal,self)
+		self.positionSlider = video_progress_bar(QtCore.Qt.Horizontal,self)
 		self.positionSlider.setToolTip('Position')
 		self.positionSlider.setMaximum(1000)
 		self.positionSlider.sliderMoved.connect(self.setPosition)
@@ -37,7 +38,7 @@ class ToolBar(QtWidgets.QWidget):
 
 		#Volume Button
 		self.hButtonBox.addStretch(1)
-		self.volumeSlider = QtWidgets.QSlider(QtCore.Qt.Horizontal,self)
+		self.volumeSlider = volume_slider(QtCore.Qt.Horizontal,self)
 		self.volumeSlider.setMaximum(100)
 		self.volumeSlider.setValue(20)
 		self.volumeSlider.setToolTip('Volume')

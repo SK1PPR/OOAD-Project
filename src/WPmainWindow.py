@@ -29,6 +29,7 @@ class MainClass(QtWidgets.QMainWindow):
 			self.configuration=json.load(f)
 	
 	def createUI(self):
+		self.setMinimumSize(QtCore.QSize(1280,720))
 		self.mainWidget = QtWidgets.QWidget()
 		self.setCentralWidget(self.mainWidget)
 		#Menu
