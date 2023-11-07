@@ -52,9 +52,13 @@ class ChatClient(QtCore.QObject):
 
 	def sendMessage(self, message):
 		messageSize = struct.pack('h', len(message))
-		if not self.clientSocket.send(messageSize) or not self.clientSocket.send(message.encode('utf-8')):
-			return None
-		return True
-
+		try:
+			if not self.clientSocket.send(messageSize) or not self.clientSocket.send(message.encode('utf-8')):
+				return None
+			return True
+		except:
+			pass
+      
+      
 	def __del__(self):
 		self.clientSocket.close()

@@ -10,7 +10,7 @@ The features include:
 - **Editing:** Users can seamlessly trim files while playing, also allowing them to concatenate any number of such clips with a single click. ​
 - **Drive Integration:** Users can automatically import media folders from the drive as a playlist, making it easy to share and receive media.​
 - **File Support:** The player shows versatility, supporting various formats, from mp3, mp4, avk to mov and flv.​
-- **Watch Party:** 
+- **Watch Party:** The player allows multiple users to watch video streams together as well chat with each other over a secure unified ingress platform called ngrok.
 
 ## Requirements
 

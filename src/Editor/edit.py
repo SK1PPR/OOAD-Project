@@ -13,9 +13,11 @@ end_time = -1
 
 class tools:
     def cut_video(input_video, start_time, end_time):
-        video_clip = VideoFileClip(input_video).subclip(start_time, end_time)
-        print(video_clip.duration)
-        return video_clip
+        if start_time != -1 and end_time != -1 :
+            video_clip = VideoFileClip(input_video).subclip(start_time, end_time)
+            return video_clip
+        else:
+            return None
 
     # this is not to be shown as a tool on frontend
     def concatenate_video(clip1,clip2):
@@ -26,12 +28,6 @@ class tools:
     
 class Buttons:
     _instance=  None
-    
-    # def __init__(self, parent):
-    #     super().__init__(parent)
-    #     self.playlist = playlist()
-    #     self.start_time = -1
-    #     self.cut_tiem = -1
 
     def __new__(cls):
         if cls._instance is None:
@@ -51,25 +47,17 @@ class Buttons:
 
     def add_it(self):
         curr_video = self.playlist._list[self.playlist.playing_index]
-        print(curr_video)
-        print(self.start_time)
-        print(self.end_time)
         clip = tools.cut_video(rf'{curr_video}', self.start_time, self.end_time)
         time = Timeline()
         time.add_clip(clip)
 
-    def save_all():
+    def save_all(self):
         time = Timeline()
         file_path = fd.asksaveasfilename(title="Save As",filetypes=[("MP4 files", "*.mp4")])
         file_path , _ = os.path.splitext(file_path)
         file_path += '.mp4'
         final_clip = concatenate_videoclips(time._clips)
         final_clip.write_videofile(rf'{file_path}',codec = 'libx264')
-        # for items in time._clips:
-        #     # print(items.duration)
-            
-        #     print(file_path)
-        #     items.write_videofile(rf'{file_path}', codec = 'libx264')
 
 
     
