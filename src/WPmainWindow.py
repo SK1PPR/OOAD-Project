@@ -2,10 +2,19 @@ from PyQt5 import QtWidgets,QtGui,QtCore
 from .PyQtFrames.ChatWidget import ChatWidget
 from .PyQtFrames.WPToolBarWidget import ToolBar
 from .PyQtFrames.WPVideoFrame import VideoFrame
-from pyngrok import ngrok,conf
 from .Video.Player import Player
-from .Backend.Server import ChatServer
+from .Backend.server import ChatServer
 import sys, os, json, base64, threading, time, random, string, pyperclip, urllib
+
+import ssl
+from pyngrok import ngrok, conf, installer
+pyngrok_config = conf.get_default()
+if not os.path.exists(pyngrok_config.ngrok_path):
+    myssl = ssl.create_default_context()
+    myssl.check_hostname=False
+    myssl.verify_mode=ssl.CERT_NONE
+    installer.install_ngrok(pyngrok_config.ngrok_path, context=myssl)
+public_url = ngrok.connect(5000).public_url
 
 DEBUG = False
 

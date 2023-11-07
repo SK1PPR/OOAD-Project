@@ -1,7 +1,7 @@
 from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
 from PyQt5.QtMultimediaWidgets import QVideoWidget
 from PyQt5.QtCore import QUrl
-from ..Backend.Playlist import playlist
+from ..Backend.playlist import playlist
 
 class media_player(QMediaPlayer):
     
