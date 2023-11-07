@@ -1,4 +1,4 @@
-import socket, threading, os, select, struct
+import socket, threading, select, struct
 
 class chat_server:
 	

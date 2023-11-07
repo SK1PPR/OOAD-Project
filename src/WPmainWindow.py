@@ -17,9 +17,9 @@ class MainClass(QtWidgets.QMainWindow):
 		self.isHost = False
 		self.name = None
 		self.videoServer = None
-		self.finalString = None
+		self.final_string = None
 		self.chatTunnel = None
-		self.chatServer = None
+		self.chat_server = None
 		self.videoTunnel = None
 		self.player = Player()
 		self.askForName()
@@ -71,29 +71,29 @@ class MainClass(QtWidgets.QMainWindow):
 		#Creating a Timer which would send Data Packets every 1second to connected clients if the current Instance is host.
 		self.videoSyncTimer = QtCore.QTimer(self)
 		self.videoSyncTimer.setInterval(1000)
-		self.videoSyncTimer.timeout.connect(self.sendTimeStamp)
+		self.videoSyncTimer.timeout.connect(self.sendtime_stamp)
   
 	def updateUI(self):
-		mediaPos = int(self.player.getPosition()*1000)
-		self.toolBar.positionSlider.setValue(mediaPos)
+		media_pos = int(self.player.getPosition()*1000)
+		self.toolBar.positionSlider.setValue(media_pos)
 		if not self.player.isPlaying():
 			self.timer.stop()
 			self.videoSyncTimer.stop()
 			if not self.isPaused:
 				self.toolBar.stop()
 
-	def sendTimeStamp(self):
-		mediaPos = int(self.player.getAbsolutePosition()/1000)
-		finalString = f'2345TimeStamp:{not self.player.isPlaying()}:{mediaPos}'
-		self.chatServer.broadCast(finalString, None)
+	def sendtime_stamp(self):
+		media_pos = int(self.player.getAbsolutePosition()/1000)
+		final_string = f'2345time_stamp:{not self.player.isPlaying()}:{media_pos}'
+		self.chat_server.broad_cast(final_string, None)
 
-	def receiveTimeStamp(self, msg):
-		_, hostPaused, timeStamp = msg.split(':')
-		timeStamp = int(timeStamp)
-		hostPaused = hostPaused == 'True'
-		if abs(self.player.getAbsolutePosition()/1000-timeStamp)>2:
-			self.player.setTime(timeStamp*1000)
-		if (not hostPaused and not self.player.isPlaying()) or (hostPaused and self.player.isPlaying()):
+	def receivetime_stamp(self, msg):
+		_, host_paused, time_stamp = msg.split(':')
+		time_stamp = int(time_stamp)
+		host_paused = host_paused == 'True'
+		if abs(self.player.getAbsolutePosition()/1000-time_stamp)>2:
+			self.player.setTime(time_stamp*1000)
+		if (not host_paused and not self.player.isPlaying()) or (host_paused and self.player.isPlaying()):
 			self.player.playPause()
 		
 	def createRandomUserPassword(self):
@@ -104,78 +104,78 @@ class MainClass(QtWidgets.QMainWindow):
 		return f'{self._userName}:{self._password}'
 
 	def askForName(self):
-		name,okPressed=QtWidgets.QInputDialog.getText(None, "Enter your NickName", "Enter your NickName:",QtWidgets.QLineEdit.Normal,"")
-		if not okPressed or not name:
+		name,ok_pressed=QtWidgets.QInputDialog.getText(None, "Enter your NickName", "Enter your NickName:",QtWidgets.QLineEdit.Normal,"")
+		if not ok_pressed or not name:
 			self.name='NoobMaster69'
 		self.name=name
 	
-	def createNgrokTunnels(self,fileFolder):
+	def createNgrokTunnels(self,file_folder):
 		ngrok.set_auth_token(self.configuration['ngrokAuthKey'])
 		conf.get_default().ngrok_path = self.configuration['ngrokPath']
 		class b:
 			def __init__(self,a):
 				self.public_url=a
 		if not DEBUG:
-			self.videoTunnel = ngrok.connect(f'file:///{fileFolder}','http',auth=f'{self._getConcatUserPassword()}')
-			self.chatTunnel = ngrok.connect(self.configuration['chatServerPort'],'tcp')
+			self.videoTunnel = ngrok.connect(f'file:///{file_folder}','http',auth=f'{self._getConcatUserPassword()}')
+			self.chatTunnel = ngrok.connect(self.configuration['chat_serverPort'],'tcp')
 		else:
-			fileName = [i for i in __import__('os').listdir(fileFolder) if i.endswith('.mp4')][0]
-			self.videoTunnel = b(f"{fileFolder}/{fileName}")
-			self.chatTunnel = b(f'tcp://0.0.0.0:{self.configuration["chatServerPort"]}')
+			file_name = [i for i in __import__('os').listdir(file_folder) if i.endswith('.mp4')][0]
+			self.videoTunnel = b(f"{file_folder}/{file_name}")
+			self.chatTunnel = b(f'tcp://0.0.0.0:{self.configuration["chat_serverPort"]}')
 
 	def createHost(self):
 		self.cleanUp()
-		fileName = QtWidgets.QFileDialog.getOpenFileName(self, 'Choose video file which you wanna stream.', os.path.expanduser('~'))
-		if not fileName[0]:
+		file_name = QtWidgets.QFileDialog.getOpenfile_name(self, 'Choose video file which you wanna stream.', os.path.expanduser('~'))
+		if not file_name[0]:
 			return
-		filePath = fileName[0]
-		fileFolder = '/'.join(filePath.split('/')[:-1])
-		fileName = filePath.split('/')[-1]
-		self.createNgrokTunnels(fileFolder)
-		self.chatServer = ChatServer('0.0.0.0' ,self.configuration['chatServerPort'],self._getConcatUserPassword())
-		threading.Thread(target=self.chatServer.listenForConnections,daemon=True).start()
+		file_path = file_name[0]
+		file_folder = '/'.join(file_path.split('/')[:-1])
+		file_name = file_path.split('/')[-1]
+		self.createNgrokTunnels(file_folder)
+		self.chat_server = chat_server('0.0.0.0' ,self.configuration['chat_serverPort'],self._getConcatUserPassword())
+		threading.Thread(target=self.chat_server.listen_for_connections,daemon=True).start()
 		time.sleep(1)
-		self.chatWidget.intializeClient('0.0.0.0', self.configuration['chatServerPort'], self._getConcatUserPassword(), True)
+		self.chatWidget.intializeClient('0.0.0.0', self.configuration['chat_serverPort'], self._getConcatUserPassword(), True)
 		self.toolBar.volumeSlider.setEnabled(True)
 		self.toolBar.playButton.setEnabled(True)
 		self.toolBar.stopButton.setEnabled(True)
 		self.toolBar.positionSlider.setEnabled(True)
 		self.isHost = True
-		# self.chatWidget.client.timeStampTrigger.connect(self.receiveTimeStamp)
-		windowName = self.player.openFileOrUrl(filePath)
-		self.setWindowTitle(windowName)
+		# self.chatWidget.client.time_stampTrigger.connect(self.receivetime_stamp)
+		window_name = self.player.openFileOrUrl(file_path)
+		self.setWindowTitle(window_name)
 		self.player.setWindowToPyQT(self.videoFrame.winId())
-		self.finalString = ';;;'.join([self.chatTunnel.public_url, self.videoTunnel.public_url, urllib.parse.quote(fileName), self._getConcatUserPassword()])
-		self.finalString = base64.b64encode(self.finalString.encode('ascii')).decode('ascii')
-		msgBox = QtWidgets.QMessageBox(QtWidgets.QMessageBox.Icon.Information , 'Copy to ClipBoard', 'Click on Yes to copy the String to ClipBoard you can then send it to your friend to add them in your session.')
-		msgBox.setStandardButtons(QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
-		msgBox.buttonClicked.connect(self.copyToClipBoard)
-		msgBox.exec_()
+		self.final_string = ';;;'.join([self.chatTunnel.public_url, self.videoTunnel.public_url, urllib.parse.quote(file_name), self._getConcatUserPassword()])
+		self.final_string = base64.b64encode(self.final_string.encode('ascii')).decode('ascii')
+		msg_box = QtWidgets.QMessageBox(QtWidgets.QMessageBox.Icon.Information , 'Copy to ClipBoard', 'Click on Yes to copy the String to ClipBoard you can then send it to your friend to add them in your session.')
+		msg_box.setStandardButtons(QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
+		msg_box.buttonClicked.connect(self.copyToClipBoard)
+		msg_box.exec_()
 		self.videoSyncTimer.start()
 
 	def createClient(self):
 		self.cleanUp()
-		b64string,okPressed = QtWidgets.QInputDialog.getText(None, "Enter the String given to you","Enter The String given to you by Others.", QtWidgets.QLineEdit.Normal,"")
-		if not okPressed or not b64string:
+		b64string,ok_pressed = QtWidgets.QInputDialog.getText(None, "Enter the String given to you","Enter The String given to you by Others.", QtWidgets.QLineEdit.Normal,"")
+		if not ok_pressed or not b64string:
 			return 
 		try:
-			decodedStrings = base64.b64decode(b64string).decode('ascii').split(';;;')
-			self.chatWidget.intializeClient(decodedStrings[0].split(':')[1][2:], int(decodedStrings[0].split(':')[2]), decodedStrings[3], False)
+			decoded_strings = base64.b64decode(b64string).decode('ascii').split(';;;')
+			self.chatWidget.intializeClient(decoded_strings[0].split(':')[1][2:], int(decoded_strings[0].split(':')[2]), decoded_strings[3], False)
 			if not DEBUG:
-				videoUrl = decodedStrings[1].split('//')
-				videoUrl = videoUrl[0] + '//' + decodedStrings[3] + '@' + videoUrl[1] + '/' + decodedStrings[2]
+				video_url = decoded_strings[1].split('//')
+				video_url = video_url[0] + '//' + decoded_strings[3] + '@' + video_url[1] + '/' + decoded_strings[2]
 			else:
-				videoUrl = decodedStrings[1]
+				video_url = decoded_strings[1]
 
 		except (IndexError, base64.binascii.Error) as e:
-			msgBox = QtWidgets.QMessageBox(QtWidgets.QMessageBox.Icon.Critical, 'Invalid String', 'The String Given is either invalid or malfunctioned.')
-			msgBox.setStandardButtons(QtWidgets.QMessageBox.Ok)
-			msgBox.exec_()
+			msg_box = QtWidgets.QMessageBox(QtWidgets.QMessageBox.Icon.Critical, 'Invalid String', 'The String Given is either invalid or malfunctioned.')
+			msg_box.setStandardButtons(QtWidgets.QMessageBox.Ok)
+			msg_box.exec_()
 			return
 		
-		self.chatWidget.client.timeStampTrigger.connect(self.receiveTimeStamp)
-		windowName = self.player.openFileOrUrl(videoUrl)
-		self.setWindowTitle(windowName)
+		self.chatWidget.client.time_stampTrigger.connect(self.receivetime_stamp)
+		window_name = self.player.openFileOrUrl(video_url)
+		self.setWindowTitle(window_name)
 		self.player.setWindowToPyQT(self.videoFrame.winId())
 		self.toolBar.playButton.setEnabled(False)
 		self.toolBar.stopButton.setEnabled(False)
@@ -188,12 +188,12 @@ class MainClass(QtWidgets.QMainWindow):
 	def copyToClipBoard(self,button):
 		if button.text=='No':
 			return
-		pyperclip.copy(self.finalString)
+		pyperclip.copy(self.final_string)
 
 	def cleanUp(self):
 		if self.videoTunnel and self.chatTunnel:
 			ngrok.disconnect(self.videoTunnel.public_url)
 			ngrok.disconnect(self.chatTunnel.public_url)
 		self.chatWidget.cleanUp()
-		if self.chatServer:
-			self.chatServer.cleanUp()
+		if self.chat_server:
+			self.chat_server.clean_up()

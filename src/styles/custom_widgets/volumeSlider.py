@@ -1,7 +1,5 @@
-import sys
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QPainter, QColor,QPen
-from PyQt5.QtWidgets import QApplication, QMainWindow, QSlider, QVBoxLayout, QWidget
+from PyQt5.QtGui import QPainter, QColor
+from PyQt5.QtWidgets import QSlider
 
 class volume_slider(QSlider):
     def __init__(self,*a):
