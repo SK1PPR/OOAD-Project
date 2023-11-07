@@ -2,17 +2,17 @@ import socket, struct
 from PyQt5 import QtCore
 
 
-class chat_client(QtCore.QObject):
+class ChatClient(QtCore.QObject):
 
 	receiveMessageTrigger = QtCore.pyqtSignal(str)
 	timeStampTrigger = QtCore.pyqtSignal(str)
 
-	def __init__(self, addr, port, is_host):
+	def __init__(self, addr, port, isHost):
 		QtCore.QThread.__init__(self)
 		self.clientSocket = None
 		self.addr = addr
 		self.port = port
-		self.is_host = is_host
+		self.isHost = isHost
 		self.intializeSocket()
 
 	def intializeSocket(self):
@@ -25,11 +25,11 @@ class chat_client(QtCore.QObject):
 	
 	def receiveMessage(self):
 		try:
-			binmessage_size = self.clientSocket.recv(2)
-			if not binmessage_size:
+			binMessageSize = self.clientSocket.recv(2)
+			if not binMessageSize:
 				return None
-			message_size = struct.unpack('h', binmessage_size)[0]
-			message = self.clientSocket.recv(message_size)
+			messageSize = struct.unpack('h', binMessageSize)[0]
+			message = self.clientSocket.recv(messageSize)
 			if not message:
 				return None
 			return message.decode('utf-8')
@@ -45,14 +45,14 @@ class chat_client(QtCore.QObject):
 				user = message.split(':')[1]
 				message = user + " has joined the chat."
 			if message.startswith('2345TimeStamp'):
-				if not self.is_host:
+				if not self.isHost:
 					self.timeStampTrigger.emit(message)
 				continue
 			self.receiveMessageTrigger.emit(message)
 
 	def sendMessage(self, message):
-		message_size = struct.pack('h', len(message))
-		if not self.clientSocket.send(message_size) or not self.clientSocket.send(message.encode('utf-8')):
+		messageSize = struct.pack('h', len(message))
+		if not self.clientSocket.send(messageSize) or not self.clientSocket.send(message.encode('utf-8')):
 			return None
 		return True
 
